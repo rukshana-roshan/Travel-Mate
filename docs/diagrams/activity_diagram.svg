@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" width="100%" height="100%" style="background:#F8FAFC; font-family:'Segoe UI', Inter, Arial, sans-serif;">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1" />
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#123B5D" />
+    </marker>
+  </defs>
+
+  <!-- Title Banner -->
+  <rect x="20" y="15" width="860" height="50" rx="8" fill="#123B5D" />
+  <text x="450" y="46" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="700">Activity Diagram — Smart One-Day Itinerary Planning Process</text>
+
+  <!-- Start Node -->
+  <circle cx="450" cy="100" r="14" fill="#123B5D" />
+  <line x1="450" y1="114" x2="450" y2="140" stroke="#123B5D" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Action 1: Browse & Shortlist -->
+  <rect x="330" y="140" width="240" height="42" rx="10" fill="#FFFFFF" stroke="#13B8A6" stroke-width="2" filter="url(#shadow)" />
+  <text x="450" y="166" text-anchor="middle" fill="#172B4D" font-size="13" font-weight="600">Select Attractions from Catalog</text>
+  <line x1="450" y1="182" x2="450" y2="210" stroke="#123B5D" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Decision 1: Shortlist Count >= 1 -->
+  <polygon points="450,210 500,235 450,260 400,235" fill="#FEF3C7" stroke="#F59E42" stroke-width="2" />
+  <text x="450" y="239" text-anchor="middle" fill="#92400E" font-size="10" font-weight="700">Count ≥ 1?</text>
+
+  <!-- Loop back if 0 -->
+  <line x1="400" y1="235" x2="280" y2="235" stroke="#DC2626" stroke-width="2" />
+  <line x1="280" y1="235" x2="280" y2="161" stroke="#DC2626" stroke-width="2" />
+  <line x1="280" y1="161" x2="330" y2="161" stroke="#DC2626" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="310" y="228" fill="#DC2626" font-size="11" font-weight="600">[No: Count = 0]</text>
+
+  <!-- Continue if >= 1 -->
+  <line x1="450" y1="260" x2="450" y2="295" stroke="#123B5D" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="460" y="280" fill="#0D9488" font-size="11" font-weight="700">[Yes]</text>
+
+  <!-- Action 2: Input Preferences -->
+  <rect x="300" y="295" width="300" height="42" rx="10" fill="#FFFFFF" stroke="#13B8A6" stroke-width="2" filter="url(#shadow)" />
+  <text x="450" y="321" text-anchor="middle" fill="#172B4D" font-size="12" font-weight="600">Input Trip Preferences (Start/End Time, Vehicle)</text>
+  <line x1="450" y1="337" x2="450" y2="365" stroke="#123B5D" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Action 3: Trigger Nearest-Neighbour Calculation Engine -->
+  <rect x="290" y="365" width="320" height="44" rx="10" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)" />
+  <text x="450" y="392" text-anchor="middle" fill="#1E40AF" font-size="13" font-weight="700">Anchor Origin at Atulugama (6.7022, 80.0528)</text>
+  <line x1="450" y1="409" x2="450" y2="435" stroke="#123B5D" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Action 4: Compute Road Distance Matrix -->
+  <rect x="290" y="435" width="320" height="44" rx="10" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)" />
+  <text x="450" y="462" text-anchor="middle" fill="#1E40AF" font-size="12" font-weight="600">Compute Haversine Distance × 1.25 Road Factor</text>
+  <line x1="450" y1="479" x2="450" y2="505" stroke="#123B5D" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Action 5: Sequence Stops -->
+  <rect x="300" y="505" width="300" height="44" rx="10" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)" />
+  <text x="450" y="532" text-anchor="middle" fill="#1E40AF" font-size="12" font-weight="600">Greedy Nearest-Neighbour Sequencing</text>
+  <line x1="450" y1="549" x2="450" y2="575" stroke="#123B5D" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Decision 2: Midday Lunch Break -->
+  <polygon points="450,575 510,600 450,625 390,600" fill="#FEF3C7" stroke="#F59E42" stroke-width="2" />
+  <text x="450" y="604" text-anchor="middle" fill="#92400E" font-size="10" font-weight="700">Spans 12:30-13:30?</text>
+
+  <!-- Branch: Yes, Insert Lunch -->
+  <line x1="510" y1="600" x2="620" y2="600" stroke="#123B5D" stroke-width="2" />
+  <line x1="620" y1="600" x2="620" y2="640" stroke="#123B5D" stroke-width="2" marker-end="url(#arrow)" />
+  <rect x="540" y="640" width="160" height="36" rx="8" fill="#FFFBEB" stroke="#F59E42" stroke-width="1.5" />
+  <text x="620" y="662" text-anchor="middle" fill="#B45309" font-size="11" font-weight="600">Insert 60m Lunch Break</text>
+  <line x1="620" y1="676" x2="620" y2="705" stroke="#123B5D" stroke-width="2" />
+  <line x1="620" y1="705" x2="480" y2="705" stroke="#123B5D" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Branch: No Lunch -->
+  <line x1="450" y1="625" x2="450" y2="685" stroke="#123B5D" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="458" y="645" fill="#64748B" font-size="10">[No]</text>
+
+  <!-- Action 6: Render Interactive Schedule -->
+  <rect x="300" y="685" width="300" height="44" rx="10" fill="#F0FDFA" stroke="#13B8A6" stroke-width="2" filter="url(#shadow)" />
+  <text x="450" y="712" text-anchor="middle" fill="#0D9488" font-size="13" font-weight="700">Render Timed Timeline &amp; Google Map</text>
+  <line x1="450" y1="729" x2="450" y2="760" stroke="#123B5D" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Action 7: Export / Save -->
+  <rect x="320" y="760" width="260" height="40" rx="10" fill="#FFFFFF" stroke="#64748B" stroke-width="2" filter="url(#shadow)" />
+  <text x="450" y="785" text-anchor="middle" fill="#172B4D" font-size="12" font-weight="600">Save to Account / Export PDF</text>
+  <line x1="450" y1="800" x2="450" y2="835" stroke="#123B5D" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Final Node (Bullseye) -->
+  <circle cx="450" cy="850" r="16" fill="#FFFFFF" stroke="#123B5D" stroke-width="2" />
+  <circle cx="450" cy="850" r="10" fill="#123B5D" />
+</svg>

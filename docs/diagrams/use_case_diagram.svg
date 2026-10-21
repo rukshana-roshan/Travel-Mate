@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 720" width="100%" height="100%" style="background:#F8FAFC; font-family:'Segoe UI', Inter, Arial, sans-serif;">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1" />
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#123B5D" />
+    </marker>
+    <marker id="dash-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748B" />
+    </marker>
+  </defs>
+
+  <!-- Title Banner -->
+  <rect x="20" y="15" width="960" height="50" rx="8" fill="#123B5D" />
+  <text x="500" y="46" text-anchor="middle" fill="#FFFFFF" font-size="20" font-weight="700">Use Case Diagram — TravelMate Smart Tourist Day-Visit Planner</text>
+
+  <!-- System Boundary Box -->
+  <rect x="230" y="85" width="540" height="610" rx="12" fill="#FFFFFF" stroke="#13B8A6" stroke-width="2.5" stroke-dasharray="8 5" filter="url(#shadow)" />
+  <rect x="245" y="95" width="280" height="26" rx="4" fill="#E6FFFA" />
+  <text x="255" y="113" fill="#0D9488" font-size="12" font-weight="700">SYSTEM: TravelMate Application</text>
+
+  <!-- ACTOR 1: TOURIST (Left) -->
+  <g transform="translate(90, 240)">
+    <!-- Stick figure -->
+    <circle cx="35" cy="20" r="15" fill="#FFFFFF" stroke="#123B5D" stroke-width="3" />
+    <line x1="35" y1="35" x2="35" y2="75" stroke="#123B5D" stroke-width="3" />
+    <line x1="10" y1="50" x2="60" y2="50" stroke="#123B5D" stroke-width="3" />
+    <line x1="35" y1="75" x2="15" y2="115" stroke="#123B5D" stroke-width="3" />
+    <line x1="35" y1="75" x2="55" y2="115" stroke="#123B5D" stroke-width="3" />
+    <text x="35" y="140" text-anchor="middle" fill="#123B5D" font-size="14" font-weight="700">Tourist</text>
+    <text x="35" y="158" text-anchor="middle" fill="#64748B" font-size="11">(End User)</text>
+  </g>
+
+  <!-- ACTOR 2: ADMINISTRATOR (Right) -->
+  <g transform="translate(840, 320)">
+    <!-- Stick figure with badge -->
+    <circle cx="35" cy="20" r="15" fill="#FFFFFF" stroke="#123B5D" stroke-width="3" />
+    <line x1="35" y1="35" x2="35" y2="75" stroke="#123B5D" stroke-width="3" />
+    <line x1="10" y1="50" x2="60" y2="50" stroke="#123B5D" stroke-width="3" />
+    <line x1="35" y1="75" x2="15" y2="115" stroke="#123B5D" stroke-width="3" />
+    <line x1="35" y1="75" x2="55" y2="115" stroke="#123B5D" stroke-width="3" />
+    <text x="35" y="140" text-anchor="middle" fill="#123B5D" font-size="14" font-weight="700">Administrator</text>
+    <text x="35" y="158" text-anchor="middle" fill="#64748B" font-size="11">(Staff / Site Manager)</text>
+  </g>
+
+  <!-- USE CASES (Ovals) -->
+  <!-- UC1: Browse Attractions -->
+  <ellipse cx="400" cy="140" rx="100" ry="24" fill="#F0FDFA" stroke="#13B8A6" stroke-width="2" />
+  <text x="400" y="145" text-anchor="middle" fill="#172B4D" font-size="12" font-weight="600">Browse Attractions</text>
+
+  <!-- UC2: Search & Filter Attractions -->
+  <ellipse cx="400" cy="200" rx="110" ry="24" fill="#F0FDFA" stroke="#13B8A6" stroke-width="2" />
+  <text x="400" y="205" text-anchor="middle" fill="#172B4D" font-size="12" font-weight="600">Search &amp; Filter Attractions</text>
+
+  <!-- UC3: View Destination Details -->
+  <ellipse cx="400" cy="260" rx="110" ry="24" fill="#F0FDFA" stroke="#13B8A6" stroke-width="2" />
+  <text x="400" y="265" text-anchor="middle" fill="#172B4D" font-size="12" font-weight="600">View Destination Details</text>
+
+  <!-- UC4: Shortlist Destinations -->
+  <ellipse cx="400" cy="320" rx="105" ry="24" fill="#F0FDFA" stroke="#13B8A6" stroke-width="2" />
+  <text x="400" y="325" text-anchor="middle" fill="#172B4D" font-size="12" font-weight="600">Select Destinations (Shortlist)</text>
+
+  <!-- UC5: Generate Day Itinerary -->
+  <ellipse cx="400" cy="380" rx="115" ry="24" fill="#FEF3C7" stroke="#F59E42" stroke-width="2" />
+  <text x="400" y="385" text-anchor="middle" fill="#92400E" font-size="12" font-weight="700">Generate Day Itinerary</text>
+
+  <!-- UC6: Save / Export PDF -->
+  <ellipse cx="610" cy="380" rx="90" ry="22" fill="#F1F5F9" stroke="#64748B" stroke-width="1.8" />
+  <text x="610" y="384" text-anchor="middle" fill="#334155" font-size="11" font-weight="600">Save / Export Itinerary</text>
+
+  <!-- UC7: View Google Maps Route -->
+  <ellipse cx="400" cy="440" rx="110" ry="24" fill="#F0FDFA" stroke="#13B8A6" stroke-width="2" />
+  <text x="400" y="445" text-anchor="middle" fill="#172B4D" font-size="12" font-weight="600">View Google Maps Route</text>
+
+  <!-- UC8: Submit Contact Inquiry -->
+  <ellipse cx="400" cy="500" rx="105" ry="24" fill="#F0FDFA" stroke="#13B8A6" stroke-width="2" />
+  <text x="400" y="505" text-anchor="middle" fill="#172B4D" font-size="12" font-weight="600">Submit Contact Inquiry</text>
+
+  <!-- ADMIN USE CASES -->
+  <!-- UC9: Admin Login -->
+  <ellipse cx="580" cy="530" rx="95" ry="24" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2" />
+  <text x="580" y="535" text-anchor="middle" fill="#1E40AF" font-size="12" font-weight="600">Admin Authentication</text>
+
+  <!-- UC10: Manage Destinations (CRUD) -->
+  <ellipse cx="580" cy="590" rx="105" ry="24" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2" />
+  <text x="580" y="595" text-anchor="middle" fill="#1E40AF" font-size="12" font-weight="600">Manage Destinations (CRUD)</text>
+
+  <!-- UC11: Review Inquiries -->
+  <ellipse cx="580" cy="650" rx="95" ry="24" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2" />
+  <text x="580" y="655" text-anchor="middle" fill="#1E40AF" font-size="12" font-weight="600">Review Tourist Inquiries</text>
+
+  <!-- ASSOCIATIONS (Tourist to UCs) -->
+  <line x1="145" y1="290" x2="305" y2="145" stroke="#123B5D" stroke-width="1.8" />
+  <line x1="145" y1="295" x2="295" y2="200" stroke="#123B5D" stroke-width="1.8" />
+  <line x1="145" y1="300" x2="290" y2="260" stroke="#123B5D" stroke-width="1.8" />
+  <line x1="145" y1="310" x2="295" y2="320" stroke="#123B5D" stroke-width="1.8" />
+  <line x1="145" y1="315" x2="285" y2="380" stroke="#123B5D" stroke-width="2" />
+  <line x1="145" y1="320" x2="292" y2="440" stroke="#123B5D" stroke-width="1.8" />
+  <line x1="145" y1="325" x2="298" y2="500" stroke="#123B5D" stroke-width="1.8" />
+
+  <!-- ASSOCIATIONS (Admin to UCs) -->
+  <line x1="840" y1="370" x2="675" y2="530" stroke="#123B5D" stroke-width="1.8" />
+  <line x1="840" y1="380" x2="685" y2="590" stroke="#123B5D" stroke-width="1.8" />
+  <line x1="840" y1="390" x2="675" y2="650" stroke="#123B5D" stroke-width="1.8" />
+
+  <!-- EXTEND: UC5 -> UC6 -->
+  <line x1="515" y1="380" x2="520" y2="380" stroke="#64748B" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#dash-arrow)" />
+  <text x="548" y="372" fill="#64748B" font-size="10" font-style="italic">&lt;&lt;extend&gt;&gt;</text>
+</svg>

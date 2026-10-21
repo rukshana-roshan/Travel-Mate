@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TravelMate — StarUML System Design Diagrams (Chapter 3)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    :root {
+      --primary: #123B5D;
+      --teal: #13B8A6;
+      --orange: #F59E42;
+      --dark: #172B4D;
+      --slate-500: #64748B;
+      --slate-200: #E2E8F0;
+      --light-bg: #F8FAFC;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--light-bg);
+      color: var(--dark);
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header.doc-header {
+      background: var(--primary);
+      color: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 25px -5px rgba(18, 59, 93, 0.3);
+      border-bottom: 5px solid var(--teal);
+    }
+
+    .doc-header .badge {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .doc-header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .doc-header p {
+      font-size: 14px;
+      color: #CBD5E1;
+      max-width: 800px;
+      line-height: 1.6;
+    }
+
+    .meta-pills {
+      display: flex;
+      gap: 16px;
+      margin-top: 18px;
+      font-size: 12px;
+      color: #94A3B8;
+      flex-wrap: wrap;
+    }
+
+    .meta-pills span strong { color: white; }
+
+    /* Navigation tabs */
+    .tabs-nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: white;
+      border: 1px solid var(--slate-200);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--slate-500);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* Diagram Panels */
+    .diagram-panel {
+      display: none;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid var(--slate-200);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+
+    .diagram-panel.active { display: block; }
+
+    .diagram-header {
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #FAFBFD;
+    }
+
+    .diagram-header h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .diagram-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-action {
+      background: white;
+      border: 1px solid var(--slate-200);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--slate-500);
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-action:hover {
+      border-color: var(--teal);
+      color: var(--primary);
+    }
+
+    .diagram-view {
+      padding: 30px;
+      background: white;
+      text-align: center;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: auto;
+    }
+
+    .diagram-view img, .diagram-view object {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid var(--slate-200);
+      border-radius: 8px;
+    }
+
+    .diagram-notes {
+      padding: 20px 28px;
+      background: #F8FAFC;
+      border-top: 1px solid var(--slate-200);
+      font-size: 13px;
+      line-height: 1.6;
+      color: #334155;
+    }
+
+    .diagram-notes h3 {
+      font-size: 14px;
+      color: var(--primary);
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header class="doc-header">
+      <span class="badge">TASK A: SYSTEM DESIGN SPECIFICATIONS</span>
+      <h1>TravelMate — StarUML Design Models</h1>
+      <p>
+        Official design diagrams modeled in StarUML (v5.x / v6.x) for Course Module ITE2953 (Software Project). These diagrams align strictly with the implemented domain and correspond directly with Chapter 3 (System Analysis and Design) of the Final Project Report.
+      </p>
+      <div class="meta-pills">
+        <span><strong>Student:</strong> Rukshana Roshan (E2410132)</span>
+        <span><strong>Module:</strong> ITE2953</span>
+        <span><strong>StarUML Model File:</strong> <a href="../TravelMate_Design_Models.mdj" style="color: var(--teal); font-weight: 700;" download>TravelMate_Design_Models.mdj</a></span>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab(0)"><i class="bi bi-people-fill"></i> 1. Use Case Diagram</button>
+      <button class="tab-btn" onclick="switchTab(1)"><i class="bi bi-activity"></i> 2. Activity Diagram</button>
+      <button class="tab-btn" onclick="switchTab(2)"><i class="bi bi-arrow-left-right"></i> 3. Sequence Diagram</button>
+      <button class="tab-btn" onclick="switchTab(3)"><i class="bi bi-diagram-3-fill"></i> 4. Class Diagram</button>
+      <button class="tab-btn" onclick="switchTab(4)"><i class="bi bi-database-fill"></i> 5. ER / EER Diagram</button>
+    </nav>
+
+    <!-- PANEL 1: USE CASE -->
+    <div class="diagram-panel active" id="panel-0">
+      <div class="diagram-header">
+        <div>
+          <h2>1. Use Case Diagram</h2>
+          <p style="font-size: 12px; color: var(--slate-500);">Models functional boundaries, Tourist actor, and Administrator actor with role-gated capabilities.</p>
+        </div>
+        <div class="diagram-actions">
+          <a href="use_case_diagram.svg" target="_blank" class="btn-action"><i class="bi bi-arrows-fullscreen"></i> View Fullscreen</a>
+          <a href="use_case_diagram.svg" download class="btn-action"><i class="bi bi-download"></i> Download SVG</a>
+        </div>
+      </div>
+      <div class="diagram-view">
+        <img src="use_case_diagram.svg" alt="Use Case Diagram" style="max-height: 600px;">
+      </div>
+      <div class="diagram-notes">
+        <h3>Design Documentation for Report Chapter 3.2:</h3>
+        <p>The Use Case Diagram establishes the system boundary for the TravelMate application. Two primary actors interact with the system: the <strong>Tourist</strong> (who browses destinations within 25km of Atulugama, applies multi-criteria filters, shortlists destinations, generates clock-timed itineraries, exports schedules, and submits inquiries) and the <strong>Administrator</strong> (who authenticates via BCrypt-secured login, accesses the KPI dashboard, executes CRUD operations on attractions and categories, and moderates tourist inquiries).</p>
+      </div>
+    </div>
+
+    <!-- PANEL 2: ACTIVITY DIAGRAM -->
+    <div class="diagram-panel" id="panel-1">
+      <div class="diagram-header">
+        <div>
+          <h2>2. Activity Diagram (Itinerary Planning Process)</h2>
+          <p style="font-size: 12px; color: var(--slate-500);">Flow of control from user input to nearest-neighbour route calculation, midday break injection, and schedule rendering.</p>
+        </div>
+        <div class="diagram-actions">
+          <a href="activity_diagram.svg" target="_blank" class="btn-action"><i class="bi bi-arrows-fullscreen"></i> View Fullscreen</a>
+          <a href="activity_diagram.svg" download class="btn-action"><i class="bi bi-download"></i> Download SVG</a>
+        </div>
+      </div>
+      <div class="diagram-view">
+        <img src="activity_diagram.svg" alt="Activity Diagram" style="max-height: 650px;">
+      </div>
+      <div class="diagram-notes">
+        <h3>Design Documentation for Report Chapter 3.3:</h3>
+        <p>The Activity Diagram delineates the step-by-step workflow of the itinerary generation process. A decision node validates that the tourist has selected at least one destination. Once valid, preferences (Start/End times, Travel Mode) trigger the algorithm: anchoring origin at Atulugama, calculating the road distance matrix, sequencing stops using greedy nearest-neighbour logic, injecting a 60-minute lunch break if the tour spans 12:30 PM–1:30 PM, enforcing the finish-time boundary, and rendering the interactive timeline.</p>
+      </div>
+    </div>
+
+    <!-- PANEL 3: SEQUENCE DIAGRAM -->
+    <div class="diagram-panel" id="panel-2">
+      <div class="diagram-header">
+        <div>
+          <h2>3. Sequence Diagram (POST /api/itineraries/generate)</h2>
+          <p style="font-size: 12px; color: var(--slate-500);">Chronological message exchange between Tourist, Frontend UI, Spring Boot REST Controller, Service, and MySQL DB.</p>
+        </div>
+        <div class="diagram-actions">
+          <a href="sequence_diagram.svg" target="_blank" class="btn-action"><i class="bi bi-arrows-fullscreen"></i> View Fullscreen</a>
+          <a href="sequence_diagram.svg" download class="btn-action"><i class="bi bi-download"></i> Download SVG</a>
+        </div>
+      </div>
+      <div class="diagram-view">
+        <img src="sequence_diagram.svg" alt="Sequence Diagram" style="max-height: 600px;">
+      </div>
+      <div class="diagram-notes">
+        <h3>Design Documentation for Report Chapter 3.4:</h3>
+        <p>The Sequence Diagram illustrates the synchronous and asynchronous HTTP message flow across the layered architecture. The client UI dispatches a <code>POST /api/itineraries/generate</code> request carrying destination IDs and timing constraints. <code>ItineraryController</code> validates the payload and invokes <code>ItineraryService.generateItinerary()</code>. The service queries <code>AttractionRepository</code> via JPA, executes the nearest-neighbour optimization algorithm, packages the resulting timeline into an <code>ItineraryDTO</code>, and returns an HTTP 200 OK wrapped in an <code>ApiResponse&lt;T&gt;</code> envelope.</p>
+      </div>
+    </div>
+
+    <!-- PANEL 4: CLASS DIAGRAM -->
+    <div class="diagram-panel" id="panel-3">
+      <div class="diagram-header">
+        <div>
+          <h2>4. Class Diagram</h2>
+          <p style="font-size: 12px; color: var(--slate-500);">Object-oriented class hierarchy depicting entities, DTOs, controllers, methods, and relationships.</p>
+        </div>
+        <div class="diagram-actions">
+          <a href="class_diagram.svg" target="_blank" class="btn-action"><i class="bi bi-arrows-fullscreen"></i> View Fullscreen</a>
+          <a href="class_diagram.svg" download class="btn-action"><i class="bi bi-download"></i> Download SVG</a>
+        </div>
+      </div>
+      <div class="diagram-view">
+        <img src="class_diagram.svg" alt="Class Diagram" style="max-height: 650px;">
+      </div>
+      <div class="diagram-notes">
+        <h3>Design Documentation for Report Chapter 3.5:</h3>
+        <p>The Class Diagram models the core domain and control structure. Domain entities (<code>User</code>, <code>Category</code>, <code>Attraction</code>, <code>Itinerary</code>, <code>ItineraryItem</code>, <code>ContactMessage</code>) represent data models with private fields and public accessor methods. Composition (<code>*--</code>) binds <code>Itinerary</code> and <code>ItineraryItem</code>, while associations link users to their day plans and categories to attractions. Layered REST controllers handle external HTTP requests cleanly decoupled from the entity models.</p>
+      </div>
+    </div>
+
+    <!-- PANEL 5: ER / EER DIAGRAM -->
+    <div class="diagram-panel" id="panel-4">
+      <div class="diagram-header">
+        <div>
+          <h2>5. ER / EER Diagram (MySQL Relational Schema)</h2>
+          <p style="font-size: 12px; color: var(--slate-500);">3NF normalized schema depicting tables, primary keys (PK), foreign keys (FK), and cardinality constraints.</p>
+        </div>
+        <div class="diagram-actions">
+          <a href="er_diagram.svg" target="_blank" class="btn-action"><i class="bi bi-arrows-fullscreen"></i> View Fullscreen</a>
+          <a href="er_diagram.svg" download class="btn-action"><i class="bi bi-download"></i> Download SVG</a>
+        </div>
+      </div>
+      <div class="diagram-view">
+        <img src="er_diagram.svg" alt="ER / EER Diagram" style="max-height: 650px;">
+      </div>
+      <div class="diagram-notes">
+        <h3>Design Documentation for Report Chapter 3.6:</h3>
+        <p>The Entity-Relationship Diagram outlines the 3NF normalized schema implemented in <code>src/main/resources/sql/schema_and_seed_data.sql</code>. It details 7 core tables: <code>users</code>, <code>categories</code>, <code>attractions</code>, <code>itinerary</code>, <code>itinerary_items</code>, <code>favorites</code>, <code>reviews</code>, and <code>contact_messages</code>. Primary keys, foreign key constraints with <code>ON DELETE CASCADE</code>, and unique indices (such as user email and category name) ensure referential integrity and eliminate orphaned child records.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchTab(index) {
+      document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i === index);
+      });
+      document.querySelectorAll('.diagram-panel').forEach((panel, i) => {
+        panel.classList.toggle('active', i === index);
+      });
+    }
+  </script>
+</body>
+</html>

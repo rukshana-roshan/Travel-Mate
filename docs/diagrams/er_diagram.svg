@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 820" width="100%" height="100%" style="background:#F8FAFC; font-family:'Segoe UI', Inter, Arial, sans-serif;">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1" />
+    </filter>
+  </defs>
+
+  <!-- Title Banner -->
+  <rect x="20" y="15" width="1060" height="50" rx="8" fill="#123B5D" />
+  <text x="550" y="46" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="700">ER / EER Diagram — MySQL Relational Database Schema</text>
+
+  <!-- Entity 1: USERS -->
+  <g transform="translate(40, 90)">
+    <rect x="0" y="0" width="220" height="190" rx="6" fill="#FFFFFF" stroke="#123B5D" stroke-width="2" filter="url(#shadow)" />
+    <rect x="0" y="0" width="220" height="30" rx="6" fill="#123B5D" />
+    <text x="110" y="21" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">USERS</text>
+    <text x="12" y="52" fill="#B91C1C" font-size="10" font-weight="700">PK  id: BIGINT</text>
+    <text x="12" y="74" fill="#1E293B" font-size="10">    full_name: VARCHAR(100)</text>
+    <text x="12" y="96" fill="#1E293B" font-size="10">UK  email: VARCHAR(150)</text>
+    <text x="12" y="118" fill="#1E293B" font-size="10">    password: VARCHAR(255)</text>
+    <text x="12" y="140" fill="#1E293B" font-size="10">    role: VARCHAR(20)</text>
+    <text x="12" y="162" fill="#64748B" font-size="10">    created_at: DATETIME</text>
+  </g>
+
+  <!-- Entity 2: ITINERARY -->
+  <g transform="translate(370, 90)">
+    <rect x="0" y="0" width="240" height="210" rx="6" fill="#FFFFFF" stroke="#123B5D" stroke-width="2" filter="url(#shadow)" />
+    <rect x="0" y="0" width="240" height="30" rx="6" fill="#123B5D" />
+    <text x="120" y="21" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">ITINERARY</text>
+    <text x="12" y="52" fill="#B91C1C" font-size="10" font-weight="700">PK  id: BIGINT</text>
+    <text x="12" y="74" fill="#0D9488" font-size="10" font-weight="700">FK  user_id: BIGINT</text>
+    <text x="12" y="96" fill="#1E293B" font-size="10">    plan_name: VARCHAR(150)</text>
+    <text x="12" y="118" fill="#1E293B" font-size="10">    visit_date: DATE</text>
+    <text x="12" y="140" fill="#1E293B" font-size="10">    start_time: VARCHAR(10)</text>
+    <text x="12" y="162" fill="#1E293B" font-size="10">    end_time: VARCHAR(10)</text>
+    <text x="12" y="184" fill="#1E293B" font-size="10">    travel_mode: VARCHAR(20)</text>
+  </g>
+
+  <!-- Entity 3: ITINERARY_ITEMS -->
+  <g transform="translate(730, 90)">
+    <rect x="0" y="0" width="260" height="210" rx="6" fill="#FFFFFF" stroke="#123B5D" stroke-width="2" filter="url(#shadow)" />
+    <rect x="0" y="0" width="260" height="30" rx="6" fill="#123B5D" />
+    <text x="130" y="21" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">ITINERARY_ITEMS</text>
+    <text x="12" y="52" fill="#B91C1C" font-size="10" font-weight="700">PK  id: BIGINT</text>
+    <text x="12" y="74" fill="#0D9488" font-size="10" font-weight="700">FK  itinerary_id: BIGINT</text>
+    <text x="12" y="96" fill="#0D9488" font-size="10" font-weight="700">FK  attraction_id: BIGINT</text>
+    <text x="12" y="118" fill="#1E293B" font-size="10">    visit_order: INT</text>
+    <text x="12" y="140" fill="#1E293B" font-size="10">    arrival_time: VARCHAR(10)</text>
+    <text x="12" y="162" fill="#1E293B" font-size="10">    departure_time: VARCHAR(10)</text>
+    <text x="12" y="184" fill="#1E293B" font-size="10">    is_lunch_break: BOOLEAN</text>
+  </g>
+
+  <!-- Entity 4: CATEGORIES -->
+  <g transform="translate(40, 360)">
+    <rect x="0" y="0" width="220" height="150" rx="6" fill="#FFFFFF" stroke="#13B8A6" stroke-width="2" filter="url(#shadow)" />
+    <rect x="0" y="0" width="220" height="30" rx="6" fill="#13B8A6" />
+    <text x="110" y="21" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">CATEGORIES</text>
+    <text x="12" y="52" fill="#B91C1C" font-size="10" font-weight="700">PK  id: BIGINT</text>
+    <text x="12" y="74" fill="#1E293B" font-size="10">UK  name: VARCHAR(100)</text>
+    <text x="12" y="96" fill="#1E293B" font-size="10">    icon: VARCHAR(50)</text>
+    <text x="12" y="118" fill="#1E293B" font-size="10">    description: TEXT</text>
+  </g>
+
+  <!-- Entity 5: ATTRACTIONS -->
+  <g transform="translate(370, 360)">
+    <rect x="0" y="0" width="240" height="230" rx="6" fill="#FFFFFF" stroke="#13B8A6" stroke-width="2" filter="url(#shadow)" />
+    <rect x="0" y="0" width="240" height="30" rx="6" fill="#13B8A6" />
+    <text x="120" y="21" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">ATTRACTIONS</text>
+    <text x="12" y="52" fill="#B91C1C" font-size="10" font-weight="700">PK  id: BIGINT</text>
+    <text x="12" y="74" fill="#1E293B" font-size="10">    name: VARCHAR(150)</text>
+    <text x="12" y="96" fill="#0D9488" font-size="10" font-weight="700">FK  category_id: BIGINT</text>
+    <text x="12" y="118" fill="#1E293B" font-size="10">    distance_km: DOUBLE</text>
+    <text x="12" y="140" fill="#1E293B" font-size="10">    duration_minutes: INT</text>
+    <text x="12" y="162" fill="#1E293B" font-size="10">    entrance_fee: DECIMAL(10,2)</text>
+    <text x="12" y="184" fill="#1E293B" font-size="10">    latitude: DOUBLE</text>
+    <text x="12" y="206" fill="#1E293B" font-size="10">    longitude: DOUBLE</text>
+  </g>
+
+  <!-- Entity 6: FAVORITES -->
+  <g transform="translate(730, 360)">
+    <rect x="0" y="0" width="260" height="130" rx="6" fill="#FFFFFF" stroke="#F59E42" stroke-width="2" filter="url(#shadow)" />
+    <rect x="0" y="0" width="260" height="30" rx="6" fill="#F59E42" />
+    <text x="130" y="21" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">FAVORITES</text>
+    <text x="12" y="52" fill="#B91C1C" font-size="10" font-weight="700">PK  id: BIGINT</text>
+    <text x="12" y="74" fill="#0D9488" font-size="10" font-weight="700">FK  user_id: BIGINT</text>
+    <text x="12" y="96" fill="#0D9488" font-size="10" font-weight="700">FK  attraction_id: BIGINT</text>
+    <text x="12" y="118" fill="#64748B" font-size="10">    created_at: DATETIME</text>
+  </g>
+
+  <!-- Entity 7: CONTACT_MESSAGES -->
+  <g transform="translate(40, 630)">
+    <rect x="0" y="0" width="220" height="150" rx="6" fill="#FFFFFF" stroke="#64748B" stroke-width="2" filter="url(#shadow)" />
+    <rect x="0" y="0" width="220" height="30" rx="6" fill="#64748B" />
+    <text x="110" y="21" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">CONTACT_MESSAGES</text>
+    <text x="12" y="52" fill="#B91C1C" font-size="10" font-weight="700">PK  id: BIGINT</text>
+    <text x="12" y="74" fill="#1E293B" font-size="10">    name: VARCHAR(100)</text>
+    <text x="12" y="96" fill="#1E293B" font-size="10">    email: VARCHAR(150)</text>
+    <text x="12" y="118" fill="#1E293B" font-size="10">    message: TEXT</text>
+    <text x="12" y="140" fill="#1E293B" font-size="10">    is_read: BOOLEAN</text>
+  </g>
+
+  <!-- Entity 8: REVIEWS -->
+  <g transform="translate(370, 630)">
+    <rect x="0" y="0" width="240" height="150" rx="6" fill="#FFFFFF" stroke="#F59E42" stroke-width="2" filter="url(#shadow)" />
+    <rect x="0" y="0" width="240" height="30" rx="6" fill="#F59E42" />
+    <text x="120" y="21" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="700">REVIEWS</text>
+    <text x="12" y="52" fill="#B91C1C" font-size="10" font-weight="700">PK  id: BIGINT</text>
+    <text x="12" y="74" fill="#0D9488" font-size="10" font-weight="700">FK  user_id: BIGINT</text>
+    <text x="12" y="96" fill="#0D9488" font-size="10" font-weight="700">FK  attraction_id: BIGINT</text>
+    <text x="12" y="118" fill="#1E293B" font-size="10">    rating: INT (1-5)</text>
+    <text x="12" y="140" fill="#1E293B" font-size="10">    comment: TEXT</text>
+  </g>
+
+  <!-- RELATIONSHIP CONNECTORS -->
+  <!-- USERS to ITINERARY (1 to M) -->
+  <line x1="260" y1="170" x2="370" y2="170" stroke="#123B5D" stroke-width="2" />
+  <circle cx="265" cy="170" r="3" fill="#123B5D" />
+  <!-- Crow's foot at 370 -->
+  <line x1="360" y1="165" x2="370" y2="170" stroke="#123B5D" stroke-width="2" />
+  <line x1="360" y1="175" x2="370" y2="170" stroke="#123B5D" stroke-width="2" />
+
+  <!-- ITINERARY to ITINERARY_ITEMS (1 to M) -->
+  <line x1="610" y1="170" x2="730" y2="170" stroke="#123B5D" stroke-width="2" />
+  <circle cx="615" cy="170" r="3" fill="#123B5D" />
+  <!-- Crow's foot at 730 -->
+  <line x1="720" y1="165" x2="730" y2="170" stroke="#123B5D" stroke-width="2" />
+  <line x1="720" y1="175" x2="730" y2="170" stroke="#123B5D" stroke-width="2" />
+
+  <!-- CATEGORIES to ATTRACTIONS (1 to M) -->
+  <line x1="260" y1="435" x2="370" y2="435" stroke="#13B8A6" stroke-width="2" />
+  <circle cx="265" cy="435" r="3" fill="#13B8A6" />
+  <!-- Crow's foot at 370 -->
+  <line x1="360" y1="430" x2="370" y2="435" stroke="#13B8A6" stroke-width="2" />
+  <line x1="360" y1="440" x2="370" y2="435" stroke="#13B8A6" stroke-width="2" />
+
+  <!-- ATTRACTIONS to ITINERARY_ITEMS (1 to M) -->
+  <line x1="610" y1="400" x2="730" y2="240" stroke="#123B5D" stroke-width="1.8" />
+</svg>

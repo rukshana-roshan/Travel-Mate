@@ -1,0 +1,935 @@
+{
+  "_type": "Project",
+  "_id": "AAAAAAFF+h6SjaM2Hec=",
+  "name": "TravelMate",
+  "ownedElements": [
+    {
+      "_type": "UMLModel",
+      "_id": "AAAAAAFF+qBWK6M3Z8Y=",
+      "_parent": {
+        "$ref": "AAAAAAFF+h6SjaM2Hec="
+      },
+      "name": "TravelMate System Architecture Models",
+      "ownedElements": [
+        {
+          "_type": "UMLActor",
+          "_id": "AAAAAAF26b7d14ce9f045a",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Tourist"
+        },
+        {
+          "_type": "UMLActor",
+          "_id": "AAAAAAF3e8b293f7ebd4aa",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Administrator"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAF499d400685604ec",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Browse Attractions"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAFd8305fe2d2de42a",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Search Attractions by Keyword"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAF2160a9d9d2c6493",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Filter by Category"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAF47948864d1b7448",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "View Destination Details & Tips"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAFa84f619d5a9f4df",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Select Destinations (Shortlist)"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAF52e0b08c244a49c",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Generate Smart Day Itinerary"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAF402949f9722843f",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Save / Export Itinerary"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAFc2d34bfeb482407",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "View Google Maps Multi-Stop Route"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAF00005b848ccf4d5",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Submit Contact Inquiry"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAF0f56c061f1d8475",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Admin Authentication (BCrypt)"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAF8994dcb74b284a4",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Manage Destinations (CRUD)"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAFe34dac9414b5458",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Manage Categories (CRUD)"
+        },
+        {
+          "_type": "UMLUseCase",
+          "_id": "AAAAAAF83b4e6203fa2480",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Review Tourist Inquiries"
+        },
+        {
+          "_type": "UMLUseCaseDiagram",
+          "_id": "AAAAAAF1395443dec2a434",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Use Case Diagram \u2014 TravelMate",
+          "ownedViews": []
+        },
+        {
+          "_type": "UMLActivity",
+          "_id": "AAAAAAFfb96c44d2e5f460",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "One-Day Itinerary Planning Activity",
+          "nodes": [
+            {
+              "_type": "UMLInitialNode",
+              "_id": "AAAAAAF1151049b31a4415",
+              "name": "Open Planner Interface"
+            },
+            {
+              "_type": "UMLAction",
+              "_id": "AAAAAAF7ae4d8c34ec2436",
+              "name": "Select Attractions from Catalog"
+            },
+            {
+              "_type": "UMLDecisionNode",
+              "_id": "AAAAAAFf9143be527b146e",
+              "name": "Validate Destination Count >= 1"
+            },
+            {
+              "_type": "UMLAction",
+              "_id": "AAAAAAFe71dec4c43b841d",
+              "name": "Input Trip Preferences (Start Time, Finish Time, Vehicle Mode)"
+            },
+            {
+              "_type": "UMLAction",
+              "_id": "AAAAAAF61f1c393871f49d",
+              "name": "Trigger Nearest-Neighbour Calculation Engine"
+            },
+            {
+              "_type": "UMLAction",
+              "_id": "AAAAAAF8eaba9d2688443f",
+              "name": "Compute Road Distance Matrix (Haversine x 1.25 Winding Factor)"
+            },
+            {
+              "_type": "UMLAction",
+              "_id": "AAAAAAF0256f67b342b49b",
+              "name": "Chronologically Sequence Stops & Travel Buffers"
+            },
+            {
+              "_type": "UMLDecisionNode",
+              "_id": "AAAAAAF0269c51ad436497",
+              "name": "Check Midday Lunch Break (12:30 - 13:30)"
+            },
+            {
+              "_type": "UMLDecisionNode",
+              "_id": "AAAAAAF2dfa435a571d4b1",
+              "name": "Evaluate Available Finish Time Threshold"
+            },
+            {
+              "_type": "UMLAction",
+              "_id": "AAAAAAF51eeb64fcd9e461",
+              "name": "Render Interactive Timeline & Google Maps Circuit"
+            },
+            {
+              "_type": "UMLActivityFinalNode",
+              "_id": "AAAAAAFafeffaa79906499",
+              "name": "Day Plan Finalized / Export PDF"
+            }
+          ],
+          "ownedElements": [
+            {
+              "_type": "UMLActivityDiagram",
+              "_id": "AAAAAAF828b2d18a1124d0",
+              "name": "Activity Diagram \u2014 Itinerary Planning"
+            }
+          ]
+        },
+        {
+          "_type": "UMLCollaboration",
+          "_id": "AAAAAAFd081737273b946f",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Itinerary Generation Collaboration",
+          "ownedElements": [
+            {
+              "_type": "UMLInteraction",
+              "_id": "AAAAAAF2f086e121e0047a",
+              "name": "Generate Itinerary Interaction",
+              "lifelines": [
+                {
+                  "_type": "UMLLifeline",
+                  "_id": "AAAAAAF8c021c8bd873470",
+                  "name": "Tourist: Actor"
+                },
+                {
+                  "_type": "UMLLifeline",
+                  "_id": "AAAAAAFe41c7b4278494bb",
+                  "name": "itinerary.js: Client UI"
+                },
+                {
+                  "_type": "UMLLifeline",
+                  "_id": "AAAAAAFdb9426019e29414",
+                  "name": "ItineraryController: REST API"
+                },
+                {
+                  "_type": "UMLLifeline",
+                  "_id": "AAAAAAFba60fe26f5bc42e",
+                  "name": "ItineraryService: Nearest-Neighbour Engine"
+                },
+                {
+                  "_type": "UMLLifeline",
+                  "_id": "AAAAAAF6d77e70c8e82415",
+                  "name": "AttractionRepository: JPA Data Layer"
+                },
+                {
+                  "_type": "UMLLifeline",
+                  "_id": "AAAAAAF0ba440933aa54f9",
+                  "name": "MySQL: Relational DB"
+                }
+              ],
+              "ownedElements": [
+                {
+                  "_type": "UMLSequenceDiagram",
+                  "_id": "AAAAAAF096465e381b842a",
+                  "name": "Sequence Diagram \u2014 Itinerary Generation"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "_type": "UMLClassDiagram",
+          "_id": "AAAAAAFaa8ee14bcf4f4b8",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Class Diagram \u2014 TravelMate System",
+          "ownedViews": []
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "AAAAAAFad25a7898087467",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "User",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF3697bb723a01449",
+              "name": "id",
+              "type": "Long",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF96da6c62f19f454",
+              "name": "fullName",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF9ec5103dfcd0425",
+              "name": "email",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF17d656b65e5e40a",
+              "name": "password",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAFb372da2bf80d47c",
+              "name": "role",
+              "type": "Role",
+              "visibility": "private"
+            }
+          ],
+          "operations": [
+            {
+              "_type": "UMLOperation",
+              "_id": "AAAAAAFddb22c74ea0141d",
+              "name": "getId",
+              "visibility": "public"
+            },
+            {
+              "_type": "UMLOperation",
+              "_id": "AAAAAAFa6849c01ac0f49e",
+              "name": "getEmail",
+              "visibility": "public"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "AAAAAAFde36460ba33f495",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Category",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF9b79f4ce20d845c",
+              "name": "id",
+              "type": "Long",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAFdea4f75645a1404",
+              "name": "name",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF88a2c96e80d547e",
+              "name": "icon",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAFdc5dd0e248ab464",
+              "name": "description",
+              "type": "String",
+              "visibility": "private"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "AAAAAAFc28d19c0f7894a6",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Attraction",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF67e494a4d22c4b2",
+              "name": "id",
+              "type": "Long",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF69d240140a814b3",
+              "name": "name",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAFc423ae25dca7488",
+              "name": "category",
+              "type": "Category",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF6417be13b4a8406",
+              "name": "location",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF9a9ae6c61cf2415",
+              "name": "distanceKm",
+              "type": "Double",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF5b391251f963458",
+              "name": "durationMinutes",
+              "type": "Integer",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF4f8372ec7fb9465",
+              "name": "openingHours",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF534a2c7d5b9947a",
+              "name": "entranceFee",
+              "type": "BigDecimal",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAFf762fa8a9a70448",
+              "name": "latitude",
+              "type": "Double",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF2284df60ff084bb",
+              "name": "longitude",
+              "type": "Double",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF317902e67d27411",
+              "name": "averageRating",
+              "type": "Double",
+              "visibility": "private"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "AAAAAAFac2a692d6774435",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "Itinerary",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF3768127a48ae427",
+              "name": "id",
+              "type": "Long",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAFc63bcde5c8234cd",
+              "name": "user",
+              "type": "User",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAFbf9e132790e34be",
+              "name": "planName",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF5ed70de2bc86408",
+              "name": "visitDate",
+              "type": "LocalDate",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF4219b3c668e34f8",
+              "name": "startTime",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAFa5c713369f4d483",
+              "name": "endTime",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAFf883a786485c42a",
+              "name": "travelMode",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAFeaa2bd314dfa43a",
+              "name": "totalDistanceKm",
+              "type": "Double",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAFc1f502ad4ec0497",
+              "name": "items",
+              "type": "List<ItineraryItem>",
+              "visibility": "private"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "AAAAAAF9f7b76f5d6e14fc",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "ItineraryItem",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAFa94b50f4c70547e",
+              "name": "id",
+              "type": "Long",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF140f7eac9462466",
+              "name": "itinerary",
+              "type": "Itinerary",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAFf2930a6e3bde424",
+              "name": "attraction",
+              "type": "Attraction",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAFbafe26a2a1e5421",
+              "name": "visitOrder",
+              "type": "Integer",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF0f3856c0b71348c",
+              "name": "arrivalTime",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF99aef1f14867405",
+              "name": "departureTime",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF56119b6e4d314c7",
+              "name": "isLunchBreak",
+              "type": "Boolean",
+              "visibility": "private"
+            }
+          ]
+        },
+        {
+          "_type": "UMLClass",
+          "_id": "AAAAAAFb66a5ab7e1334b7",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "ContactMessage",
+          "attributes": [
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAFcf102cd4d744407",
+              "name": "id",
+              "type": "Long",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF056cb6ea643b49c",
+              "name": "name",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF5d9deef9db334ca",
+              "name": "email",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF7e681898ff8341b",
+              "name": "subject",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF3158a034bd69496",
+              "name": "message",
+              "type": "String",
+              "visibility": "private"
+            },
+            {
+              "_type": "UMLAttribute",
+              "_id": "AAAAAAF8b3725e71efd4c3",
+              "name": "isRead",
+              "type": "Boolean",
+              "visibility": "private"
+            }
+          ]
+        },
+        {
+          "_type": "ERDDataModel",
+          "_id": "AAAAAAF14b00ea3aa544e3",
+          "_parent": {
+            "$ref": "AAAAAAFF+qBWK6M3Z8Y="
+          },
+          "name": "TravelMate Relational Data Model",
+          "ownedElements": [
+            {
+              "_type": "ERDDiagram",
+              "_id": "AAAAAAFbd34c17060a84e5",
+              "name": "ER/EER Diagram \u2014 MySQL Schema",
+              "ownedViews": []
+            },
+            {
+              "_type": "ERDEntity",
+              "_id": "AAAAAAF8e32eb24737f492",
+              "name": "USERS",
+              "columns": [
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF2339f9d97c964b5",
+                  "name": "id",
+                  "type": "BIGINT",
+                  "primaryKey": true
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF46889f9311a14a0",
+                  "name": "full_name",
+                  "type": "VARCHAR(100)"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF880674053ca445c",
+                  "name": "email",
+                  "type": "VARCHAR(150)",
+                  "unique": true
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF5fb3d651cd59428",
+                  "name": "password",
+                  "type": "VARCHAR(255)"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF7963ce2c19c2480",
+                  "name": "role",
+                  "type": "VARCHAR(20)"
+                }
+              ]
+            },
+            {
+              "_type": "ERDEntity",
+              "_id": "AAAAAAFb2f5387bd678414",
+              "name": "CATEGORIES",
+              "columns": [
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAFa39177f927d5442",
+                  "name": "id",
+                  "type": "BIGINT",
+                  "primaryKey": true
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF31d77ae77fc340e",
+                  "name": "name",
+                  "type": "VARCHAR(100)",
+                  "unique": true
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF070bb585b5b04e2",
+                  "name": "icon",
+                  "type": "VARCHAR(50)"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF44fc93bb4ecd437",
+                  "name": "description",
+                  "type": "TEXT"
+                }
+              ]
+            },
+            {
+              "_type": "ERDEntity",
+              "_id": "AAAAAAF57ec4226e40e496",
+              "name": "ATTRACTIONS",
+              "columns": [
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF73815ce61bf1495",
+                  "name": "id",
+                  "type": "BIGINT",
+                  "primaryKey": true
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF3b51e21eb8684cb",
+                  "name": "name",
+                  "type": "VARCHAR(150)"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAFf9d962132891443",
+                  "name": "category_id",
+                  "type": "BIGINT",
+                  "foreignKey": true
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAFac3500647efd42b",
+                  "name": "distance_km",
+                  "type": "DOUBLE"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF4f3c637652ed4ad",
+                  "name": "duration_minutes",
+                  "type": "INT"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF54402384f7f742f",
+                  "name": "entrance_fee",
+                  "type": "DECIMAL(10,2)"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF82d668e51166434",
+                  "name": "latitude",
+                  "type": "DOUBLE"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF6db4c8c5215b40c",
+                  "name": "longitude",
+                  "type": "DOUBLE"
+                }
+              ]
+            },
+            {
+              "_type": "ERDEntity",
+              "_id": "AAAAAAF6cf12158193e4ee",
+              "name": "ITINERARY",
+              "columns": [
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF9cc35726df3a439",
+                  "name": "id",
+                  "type": "BIGINT",
+                  "primaryKey": true
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF18f085d56a934f3",
+                  "name": "user_id",
+                  "type": "BIGINT",
+                  "foreignKey": true
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAFe6ab5600eaaa477",
+                  "name": "plan_name",
+                  "type": "VARCHAR(150)"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAFc0d7b53f13ee4d0",
+                  "name": "visit_date",
+                  "type": "DATE"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAFd7fb32dc747f467",
+                  "name": "start_time",
+                  "type": "VARCHAR(10)"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF7c2ec23582cf4d4",
+                  "name": "end_time",
+                  "type": "VARCHAR(10)"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF22b407994de24ad",
+                  "name": "travel_mode",
+                  "type": "VARCHAR(20)"
+                }
+              ]
+            },
+            {
+              "_type": "ERDEntity",
+              "_id": "AAAAAAFbb846f4f441d483",
+              "name": "ITINERARY_ITEMS",
+              "columns": [
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAFfce917472ccf417",
+                  "name": "id",
+                  "type": "BIGINT",
+                  "primaryKey": true
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF63de8a7dd3564b0",
+                  "name": "itinerary_id",
+                  "type": "BIGINT",
+                  "foreignKey": true
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF80f98b6e676140b",
+                  "name": "attraction_id",
+                  "type": "BIGINT",
+                  "foreignKey": true
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF4a373639e9804f4",
+                  "name": "visit_order",
+                  "type": "INT"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAFaacfa94aa57f481",
+                  "name": "arrival_time",
+                  "type": "VARCHAR(10)"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAFdded838dfbef416",
+                  "name": "departure_time",
+                  "type": "VARCHAR(10)"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAFb064884689f6432",
+                  "name": "is_lunch_break",
+                  "type": "BOOLEAN"
+                }
+              ]
+            },
+            {
+              "_type": "ERDEntity",
+              "_id": "AAAAAAF079f68374abc4f9",
+              "name": "CONTACT_MESSAGES",
+              "columns": [
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF337be0768f19455",
+                  "name": "id",
+                  "type": "BIGINT",
+                  "primaryKey": true
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF18a6d40d57ab409",
+                  "name": "name",
+                  "type": "VARCHAR(100)"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAFb7004ebbfa45497",
+                  "name": "email",
+                  "type": "VARCHAR(150)"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAFb16991780877420",
+                  "name": "message",
+                  "type": "TEXT"
+                },
+                {
+                  "_type": "ERDColumn",
+                  "_id": "AAAAAAF7b392227de5e4f9",
+                  "name": "is_read",
+                  "type": "BOOLEAN"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

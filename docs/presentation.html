@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TravelMate — Project Overview Presentation (5 Slides)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    :root {
+      --primary: #123B5D;
+      --teal: #13B8A6;
+      --orange: #F59E42;
+      --dark: #172B4D;
+      --slate-500: #64748B;
+      --slate-200: #E2E8F0;
+      --slate-100: #F1F5F9;
+      --light-bg: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --success: #16A34A;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0B1E2E;
+      color: var(--dark);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Presentation Header Bar */
+    .pres-nav {
+      background: rgba(18, 59, 93, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      z-index: 100;
+    }
+
+    .pres-nav .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -0.2px;
+    }
+
+    .pres-nav .brand span.badge-pill {
+      background: var(--teal);
+      color: var(--primary);
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .pres-nav .controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-pres {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-pres:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+
+    .btn-pres.primary {
+      background: var(--teal);
+      color: var(--primary);
+      border-color: var(--teal);
+      font-weight: 600;
+    }
+
+    .btn-pres.primary:hover {
+      background: #0fa392;
+    }
+
+    .slide-counter {
+      font-size: 13px;
+      color: #94A3B8;
+      font-weight: 500;
+      min-width: 90px;
+      text-align: center;
+    }
+
+    /* Slides Viewport */
+    .presentation-viewport {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    .slide-card {
+      width: 100%;
+      max-width: 1280px;
+      aspect-ratio: 16 / 9;
+      background: var(--light-bg);
+      border-radius: 12px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: relative;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slide-card.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Slide Header */
+    .slide-header {
+      background: var(--primary);
+      color: white;
+      padding: 18px 36px;
+      border-bottom: 4px solid var(--teal);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .slide-header .cat-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .slide-header h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: -0.3px;
+    }
+
+    .slide-body {
+      flex: 1;
+      padding: 30px 40px;
+      display: flex;
+      gap: 28px;
+      overflow-y: auto;
+    }
+
+    .slide-footer {
+      padding: 10px 40px;
+      background: white;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--slate-500);
+    }
+
+    /* Containers */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .card-panel {
+      background: white;
+      border-radius: 10px;
+      padding: 24px;
+      border: 1px solid var(--slate-200);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+    }
+
+    .card-panel h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-panel h3.teal { color: #0D9488; }
+    .card-panel h3.orange { color: #D97706; }
+
+    .bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bullet-list li {
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: #334155;
+    }
+
+    .bullet-list li strong {
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    .bullet-list.compact li {
+      font-size: 11.5px;
+      gap: 8px;
+    }
+
+    /* Slide 0: Title Slide */
+    .slide-title-layout {
+      background: linear-gradient(135deg, #123B5D 0%, #0F2D4A 100%);
+      color: white;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 50px 70px;
+      position: relative;
+    }
+
+    .slide-title-layout .tag-badge {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--primary);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      align-self: flex-start;
+    }
+
+    .slide-title-layout h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 50px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 6px;
+      line-height: 1.1;
+    }
+
+    .slide-title-layout h2.sub {
+      font-family: 'Poppins', sans-serif;
+      font-size: 28px;
+      color: var(--orange);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .slide-title-layout p.desc {
+      font-size: 15px;
+      color: #CBD5E1;
+      max-width: 850px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .meta-box {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(19, 184, 166, 0.4);
+      border-radius: 10px;
+      padding: 18px 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 950px;
+    }
+
+    .meta-item .label {
+      font-size: 10px;
+      color: var(--teal);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .meta-item .val {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: white;
+    }
+
+    /* Metric Cards on Slide 5 */
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 16px;
+      width: 100%;
+    }
+
+    .metric-card {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 8px;
+      padding: 14px 18px;
+      text-align: center;
+    }
+
+    .metric-card .num {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .metric-card .num.green { color: var(--success); }
+    .metric-card .num.blue { color: var(--primary); }
+    .metric-card .num.teal { color: var(--teal); }
+
+    .metric-card .lbl {
+      font-size: 11px;
+      color: var(--slate-500);
+      font-weight: 500;
+    }
+
+    /* Notes Drawer */
+    .notes-panel {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #0F172A;
+      color: #E2E8F0;
+      border-top: 2px solid var(--teal);
+      padding: 16px 28px;
+      max-height: 180px;
+      overflow-y: auto;
+      font-size: 13px;
+      line-height: 1.6;
+      display: none;
+      z-index: 200;
+    }
+
+    .notes-panel.open {
+      display: block;
+    }
+
+    .notes-panel .notes-hdr {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: white;
+        overflow: visible;
+        height: auto;
+      }
+      .pres-nav, .notes-panel { display: none !important; }
+      .presentation-viewport { padding: 0; }
+      .slide-card {
+        display: flex !important;
+        page-break-after: always;
+        box-shadow: none;
+        border: 1px solid #CCC;
+        width: 100%;
+        max-width: 100%;
+        height: 100vh;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Presentation Toolbar -->
+  <header class="pres-nav">
+    <div class="brand">
+      <i class="bi bi-compass-fill" style="color: var(--teal); font-size: 20px;"></i>
+      <span>TravelMate Presentation</span>
+      <span class="badge-pill">ITE2953 Software Project</span>
+    </div>
+
+    <div class="controls">
+      <button class="btn-pres" onclick="toggleNotes()"><i class="bi bi-chat-square-quote"></i> Speaker Notes</button>
+      <button class="btn-pres" onclick="window.print()"><i class="bi bi-printer"></i> Print / PDF</button>
+      <button class="btn-pres" onclick="prevSlide()"><i class="bi bi-chevron-left"></i> Prev</button>
+      <span class="slide-counter" id="slideIndicator">Slide 0 / 5</span>
+      <button class="btn-pres primary" onclick="nextSlide()">Next <i class="bi bi-chevron-right"></i></button>
+    </div>
+  </header>
+
+  <!-- Slide Viewport -->
+  <main class="presentation-viewport">
+
+    <!-- SLIDE 0: TITLE SLIDE -->
+    <section class="slide-card active" id="slide-0" data-notes="Good morning / afternoon, respected examiners and faculty members. My name is Rukshana Roshan, Registration Number E2410132. Today, I am proud to present my final software engineering project for course module ITE2953: TravelMate – Smart Tourist Day-Visit Planner. Over the next five slides, I will provide a quick, comprehensive overview of our problem domain, layered system architecture, nearest-neighbour optimization algorithm, database design, and automated testing results.">
+      <div class="slide-title-layout">
+        <span class="tag-badge">ITE2953 Software Project • Final Defense</span>
+        <h1>TravelMate</h1>
+        <h2 class="sub">Smart Tourist Day-Visit Planner</h2>
+        <p class="desc">
+          An Enterprise Full-Stack Web Solution for Tailored Day-Trip Exploration and Optimized Itinerary Generation within a 25km Spatial Radius from Atulugama, Western Province, Sri Lanka.
+        </p>
+
+        <div class="meta-box">
+          <div class="meta-item">
+            <div class="label">Candidate Name</div>
+            <div class="val">Rukshana Roshan</div>
+          </div>
+          <div class="meta-item">
+            <div class="label">Registration Number</div>
+            <div class="val">E2410132</div>
+          </div>
+          <div class="meta-item">
+            <div class="label">Degree Programme</div>
+            <div class="val">B.Sc. (Hons) in Information Technology</div>
+          </div>
+          <div class="meta-item">
+            <div class="label">Academic Institution</div>
+            <div class="val">University of Moratuwa, Sri Lanka</div>
+          </div>
+          <div class="meta-item">
+            <div class="label">Course Module</div>
+            <div class="val">ITE2953 (Weightage: 60% Final Mark)</div>
+          </div>
+          <div class="meta-item">
+            <div class="label">Technology Stack</div>
+            <div class="val">Spring Boot 3.2, MySQL 8, Bootstrap 5, StarUML</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 1: PROBLEM DOMAIN & OBJECTIVES -->
+    <section class="slide-card" id="slide-1" data-notes="On Slide 1, we highlight the core problem domain and objectives. Travelers visiting the Atulugama and Kalutara region frequently suffer from fragmented information—incorrect entrance fees, unverified opening hours, and unrealistic day schedules that don't account for local traffic or stay durations. TravelMate resolves this by anchoring an accurate 25km geographic catalog around Atulugama, providing a deterministic nearest-neighbour itinerary planner that constructs a realistic, timed schedule, and offering local tourism administrators a dedicated portal to maintain verified data.">
+      <header class="slide-header">
+        <div>
+          <div class="cat-label">RUBRIC: PROJECT UNDERSTANDING & PROBLEM DOMAIN (15 PTS)</div>
+          <h2>Problem Domain, Project Objectives & Stakeholders</h2>
+        </div>
+        <i class="bi bi-geo-alt-fill" style="font-size: 28px; color: var(--teal);"></i>
+      </header>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- Card 1 -->
+          <div class="card-panel">
+            <h3><i class="bi bi-exclamation-triangle-fill" style="color: var(--orange);"></i> 1. Problem Domain & Background</h3>
+            <ul class="bullet-list">
+              <li>
+                <strong>Severe Information Fragmentation:</strong> Travelers exploring Atulugama, Bandaragama, and Kalutara struggle with scattered, outdated opening hours, entrance fees, and contact details across unverified blogs and social media pages.
+              </li>
+              <li>
+                <strong>Unrealistic Day Trip Schedules:</strong> Visitors often fail to pace day visits accurately. Generic GPS tools compute straight-line driving times but omit realistic on-site visit durations, meal breaks, and local road-winding factors.
+              </li>
+              <li>
+                <strong>Target Stakeholders:</strong> Domestic day tourists, weekend families, nature enthusiasts, adventure sports seekers, and regional tourism administrators responsible for asset curation.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card-panel">
+            <h3 class="teal"><i class="bi bi-bullseye"></i> 2. Project Objectives & Scope</h3>
+            <ul class="bullet-list">
+              <li>
+                <strong>Curated 25km Spatial Radius:</strong> Filter and present 10 verified, high-interest destinations across 6 categories centered at Atulugama coordinates (6.7022° N, 80.0528° E).
+              </li>
+              <li>
+                <strong>Algorithmic Day Planner:</strong> Generate conflict-free, clock-timed itineraries calculating transit buffers, stay durations, and automated midday lunch break scheduling.
+              </li>
+              <li>
+                <strong>Administrative Governance:</strong> Provide a secure, role-gated administrative suite for complete CRUD management of destinations, categories, and moderation of tourist inquiries.
+              </li>
+              <li>
+                <strong>Decoupled Multi-Platform Architecture:</strong> Architect a stateless REST API (Spring Boot 3.2 on Docker/Render) coupled with a modern, responsive static web frontend (GitHub Pages).
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span>TravelMate — Smart Tourist Day-Visit Planner</span>
+        <span>Slide 1 of 5 (Content) • Module ITE2953</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 2: SYSTEM ARCHITECTURE & TECH STACK -->
+    <section class="slide-card" id="slide-2" data-notes="Slide 2 showcases our technical implementation and architecture. The solution implements a clean four-tier layered architecture. Controllers are lightweight and map HTTP requests to services, wrapping responses in an ApiResponse envelope. DTOs completely isolate database entities so database schemas are never exposed across the network. Security is enforced through BCrypt password hashing. The persistence layer utilizes MySQL 8 in production and an in-memory H2 database for our automated test suite.">
+      <header class="slide-header">
+        <div>
+          <div class="cat-label">RUBRIC: TECHNICAL IMPLEMENTATION KNOWLEDGE (25 PTS)</div>
+          <h2>Layered Architecture, Technology Stack & API Contract</h2>
+        </div>
+        <i class="bi bi-diagram-3-fill" style="font-size: 28px; color: var(--teal);"></i>
+      </header>
+
+      <div class="slide-body">
+        <div class="grid-3">
+          <!-- Col 1: Presentation Layer -->
+          <div class="card-panel">
+            <h3 class="teal"><i class="bi bi-window"></i> Presentation Layer</h3>
+            <p style="font-size: 11px; color: var(--slate-500); margin-bottom: 12px;">Decoupled Modern Client Interface</p>
+            <ul class="bullet-list compact">
+              <li><strong>HTML5 & Bootstrap 5:</strong> Mobile-first layout with custom CSS design tokens and responsive grid.</li>
+              <li><strong>Vanilla ES6+ JavaScript:</strong> High-performance client logic with zero bulky external framework runtime.</li>
+              <li><strong>Unified API Client (api.js):</strong> Centralized <code>TM_API</code> module wrapping fetch calls with unified error handling.</li>
+              <li><strong>Interactive Navigation:</strong> Direct multi-stop route integration with Google Maps.</li>
+              <li><strong>Dedicated Print Stylesheet:</strong> Seamless PDF export formatted for day tourists via <code>@media print</code>.</li>
+            </ul>
+          </div>
+
+          <!-- Col 2: Backend REST Layer -->
+          <div class="card-panel">
+            <h3><i class="bi bi-cpu-fill"></i> Backend REST API</h3>
+            <p style="font-size: 11px; color: var(--slate-500); margin-bottom: 12px;">Spring Boot 3.2.5 & Java 17</p>
+            <ul class="bullet-list compact">
+              <li><strong>Clean Layered Hierarchy:</strong> Controller &rarr; Service Interface &rarr; ServiceImpl &rarr; JPA Repository.</li>
+              <li><strong>DTO Wire Encapsulation:</strong> Entity models never leave the service layer; validated via Bean Validation (<code>@Valid</code>).</li>
+              <li><strong>ApiResponse&lt;T&gt; Envelope:</strong> Uniform JSON format: <code>success</code>, <code>message</code>, <code>data</code>, <code>timestamp</code>.</li>
+              <li><strong>Global Exception Handling:</strong> <code>@ControllerAdvice</code> transforms exceptions into standard HTTP error responses.</li>
+              <li><strong>BCrypt Hashing:</strong> Passwords protected using Spring Security Crypto with salt rounds.</li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Data & Deployment -->
+          <div class="card-panel">
+            <h3 class="orange"><i class="bi bi-database-fill"></i> Data & DevOps</h3>
+            <p style="font-size: 11px; color: var(--slate-500); margin-bottom: 12px;">Relational DB & Cloud Ready</p>
+            <ul class="bullet-list compact">
+              <li><strong>MySQL 8.0 Relational Engine:</strong> 7 normalized tables enforcing referential integrity and cascading deletes.</li>
+              <li><strong>Spring Data JPA & Hibernate:</strong> Efficient ORM mapping with HikariCP connection pooling.</li>
+              <li><strong>In-Memory H2 DB:</strong> Powers 38 automated test cases in CI/CD without local database dependency.</li>
+              <li><strong>Docker Containerization:</strong> Multi-stage build Dockerfile minimizing container size on Render.</li>
+              <li><strong>Auto-Config Routing:</strong> <code>config.js</code> automatically points to Local or Cloud API endpoints.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span>TravelMate — Smart Tourist Day-Visit Planner</span>
+        <span>Slide 2 of 5 (Content) • Module ITE2953</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 3: FUNCTIONALITY & NEAREST-NEIGHBOUR ALGORITHM -->
+    <section class="slide-card" id="slide-3" data-notes="Slide 3 details our system functionality and itinerary algorithm. Rather than relying on an opaque, non-deterministic black box, we designed a deterministic nearest-neighbour routing algorithm tailored to local conditions. The algorithm anchors the trip at Atulugama, applies a 1.25 road-winding factor to the Haversine distance, applies realistic vehicle speeds (35 km/h for cars), builds a minute-by-minute chronological timeline, inserts a lunch break between 12:30 and 1:30 PM, and flags any stops that exceed the requested finish time.">
+      <header class="slide-header">
+        <div>
+          <div class="cat-label">RUBRIC: SYSTEM DEMONSTRATION & FUNCTIONALITY (25 PTS)</div>
+          <h2>System Functionality & Nearest-Neighbour Itinerary Algorithm</h2>
+        </div>
+        <i class="bi bi-lightning-charge-fill" style="font-size: 28px; color: var(--teal);"></i>
+      </header>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- Col 1: Implemented Features -->
+          <div class="card-panel">
+            <h3><i class="bi bi-check-circle-fill" style="color: var(--teal);"></i> Implemented Capabilities</h3>
+            <ul class="bullet-list">
+              <li>
+                <strong>Multi-Criteria Catalog Discovery:</strong> Category chip filtering, real-time debounced keyword search, and multi-field sorting (duration, distance, and ratings).
+              </li>
+              <li>
+                <strong>Rich Destination Profiles:</strong> Verified GPS coordinates, entrance fees, operational hours, high-resolution photo galleries, and respectful local travel etiquette tips.
+              </li>
+              <li>
+                <strong>Day Trip Shortlisting:</strong> Instant one-click selection with client-side duplicate prevention toasts and live trip counter badge.
+              </li>
+              <li>
+                <strong>Administrator Suite:</strong> Secure dashboard with KPI metric cards, modal forms for adding/editing destinations, category editing, and tourist message reviews.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Col 2: Nearest-Neighbour Algorithm -->
+          <div class="card-panel">
+            <h3 class="teal"><i class="bi bi-clock-history"></i> Nearest-Neighbour Itinerary Algorithm</h3>
+            <ul class="bullet-list compact">
+              <li><strong>1. Anchor Origin:</strong> Trip departure anchored at Atulugama central coordinates (6.7022° N, 80.0528° E).</li>
+              <li><strong>2. Road-Winding Haversine:</strong> Computes great-circle distance &times; 1.25 empirical road-winding coefficient for Sri Lankan terrain.</li>
+              <li><strong>3. Realistic Travel Speeds:</strong> Incorporates realistic vehicle speeds (Car: 35 km/h, Motorcycle: 40 km/h) to compute minute-level transit buffers.</li>
+              <li><strong>4. Greedy Sequence:</strong> Iteratively sequences the closest unvisited stop, minimizing total transit fatigue.</li>
+              <li><strong>5. Lunch Break Insertion:</strong> Automatically inserts a 60-minute lunch slot if trip spans 12:30 PM &ndash; 1:30 PM.</li>
+              <li><strong>6. Finish Time Enforcement:</strong> Checks cumulative time against Finish Time threshold and tags excess stops into an advisory overflow section.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span>TravelMate — Smart Tourist Day-Visit Planner</span>
+        <span>Slide 3 of 5 (Content) • Module ITE2953</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 4: DATABASE & DESIGN DECISIONS -->
+    <section class="slide-card" id="slide-4" data-notes="On Slide 4, we examine our software engineering and architectural choices. Our database schema consists of seven normalized tables designed in 3rd Normal Form with cascading foreign key integrity. Key engineering choices include using a deterministic algorithm for predictable tour plans, choosing standard Java POJOs over Lombok to ensure seamless cross-platform compilation on examiners' machines, implementing strict DTO encapsulation to avoid security over-posting, and dual-layer data resilience so the application remains robust.">
+      <header class="slide-header">
+        <div>
+          <div class="cat-label">RUBRIC: SOFTWARE ENGINEERING & DESIGN DECISIONS (15 PTS)</div>
+          <h2>Relational Database Design & Engineering Decisions</h2>
+        </div>
+        <i class="bi bi-shield-check" style="font-size: 28px; color: var(--teal);"></i>
+      </header>
+
+      <div class="slide-body">
+        <div class="grid-2">
+          <!-- Col 1: Database Schema -->
+          <div class="card-panel">
+            <h3><i class="bi bi-table"></i> Normalized Relational Schema (3NF)</h3>
+            <ul class="bullet-list compact">
+              <li><strong>users:</strong> Authentication credentials, BCrypt hashes, and role-based permissions (<code>ROLE_ADMIN</code>, <code>ROLE_TOURIST</code>).</li>
+              <li><strong>categories & attractions:</strong> One-to-Many taxonomy relationship with ON DELETE CASCADE foreign key constraints.</li>
+              <li><strong>itinerary & itinerary_items:</strong> Master-detail composite structure capturing chronological arrival, departure, transit, and lunch stops.</li>
+              <li><strong>favorites & reviews:</strong> User engagement bookmarks and star ratings with cascade cleanup on user deletion.</li>
+              <li><strong>contact_messages:</strong> Public inquiries with read/unread administrative workflow tracking.</li>
+            </ul>
+          </div>
+
+          <!-- Col 2: Engineering Rationale -->
+          <div class="card-panel">
+            <h3 class="teal"><i class="bi bi-gear-wide-connected"></i> Justified Engineering Decisions</h3>
+            <ul class="bullet-list compact">
+              <li><strong>Deterministic vs Black-Box:</strong> Guarantees explainable, reproducible itineraries without unpredictable hallucinations or expensive third-party API dependencies.</li>
+              <li><strong>Standard Java POJOs (No Lombok):</strong> Avoids Lombok annotation-processor incompatibilities across differing JDK versions (Java 17, 21, and 26), ensuring 100% build reproducibility for examiners.</li>
+              <li><strong>Dual-Layer Data Resilience:</strong> Client-side offline dataset (<code>data.js</code>) coupled with live REST synchronization ensures smooth evaluation even in offline grading environments.</li>
+              <li><strong>Strict DTO Encapsulation:</strong> Protects against JPA serialization recursion and over-posting vulnerabilities.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span>TravelMate — Smart Tourist Day-Visit Planner</span>
+        <span>Slide 4 of 5 (Content) • Module ITE2953</span>
+      </footer>
+    </section>
+
+    <!-- SLIDE 5: TESTING STRATEGY & DELIVERABLES -->
+    <section class="slide-card" id="slide-5" data-notes="In conclusion, on Slide 5, we present our testing verification and deliverables. All 38 automated test cases in our test suite execute with zero errors and zero failures, covering all 20 university test cases. The project is fully realized and packaged into our submission folder, complete with the developed system, StarUML design models, presentation slides, demonstration script, and test report. Thank you for your time, and I welcome any questions regarding the implementation.">
+      <header class="slide-header">
+        <div>
+          <div class="cat-label">RUBRIC: COMMUNICATION & TESTING RIGOR (10 PTS)</div>
+          <h2>Software Testing Strategy, Automated Results & Deliverables</h2>
+        </div>
+        <i class="bi bi-patch-check-fill" style="font-size: 28px; color: var(--teal);"></i>
+      </header>
+
+      <div class="slide-body" style="flex-direction: column;">
+        <!-- Top Metrics Banner -->
+        <div class="metric-row">
+          <div class="metric-card">
+            <div class="num green">38 / 38 PASSED</div>
+            <div class="lbl">100% Automated Maven Test Pass Rate</div>
+          </div>
+          <div class="metric-card">
+            <div class="num blue">20 / 20 TEST CASES</div>
+            <div class="lbl">University Specification (TC01 &ndash; TC20)</div>
+          </div>
+          <div class="metric-card">
+            <div class="num teal">0 FAILURES / 0 REGRESSIONS</div>
+            <div class="lbl">Spring Boot MockMvc & JUnit 5 Suite</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Col 1: Testing Strategies -->
+          <div class="card-panel">
+            <h3><i class="bi bi-shield-check"></i> Testing Strategies Implemented</h3>
+            <ul class="bullet-list compact">
+              <li><strong>Unit Testing (JUnit 5 + Mockito):</strong> 18 unit tests isolating service logic, DTO mapping, and edge case boundaries.</li>
+              <li><strong>Integration Testing (MockMvc + H2):</strong> 20 integration tests verifying full HTTP request-response lifecycles and validation annotations.</li>
+              <li><strong>Security Regression Testing:</strong> Protected BCrypt login authentication and verified 401 Unauthorized handling for unauthenticated requests.</li>
+              <li><strong>Cross-Device UI Testing:</strong> Validated responsive design across mobile (375px), tablet, and desktop breakpoints.</li>
+            </ul>
+          </div>
+
+          <!-- Col 2: Final Packaged Deliverables -->
+          <div class="card-panel">
+            <h3 class="teal"><i class="bi bi-box-seam-fill"></i> Packaged Submission Deliverables</h3>
+            <ul class="bullet-list compact">
+              <li><strong>Developed System:</strong> Full Maven backend (Spring Boot 3.2) + frontend client + MySQL schemas.</li>
+              <li><strong>StarUML Design Project (.mdj):</strong> Complete models for Use Case, Activity, Sequence, Class, and ERD.</li>
+              <li><strong>5-Slide Presentation Deck:</strong> Available in native PowerPoint (.pptx), interactive HTML, and Markdown.</li>
+              <li><strong>Video Demonstration Script:</strong> 14-stage timed walkthrough script covering all major features.</li>
+              <li><strong>Testing Report:</strong> Complete TC01&ndash;TC20 traceability matrix for Report Chapter 5.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <footer class="slide-footer">
+        <span>TravelMate — Smart Tourist Day-Visit Planner</span>
+        <span>Slide 5 of 5 (Content) • Module ITE2953</span>
+      </footer>
+    </section>
+
+  </main>
+
+  <!-- Speaker Notes Drawer -->
+  <aside class="notes-panel" id="notesPanel">
+    <div class="notes-hdr">
+      <span><i class="bi bi-mic-fill"></i> Speaker Defense Script / Talking Points</span>
+      <span style="cursor: pointer;" onclick="toggleNotes()"><i class="bi bi-x-lg"></i> Close</span>
+    </div>
+    <p id="speakerNotesText">Loading notes...</p>
+  </aside>
+
+  <script>
+    const slides = document.querySelectorAll('.slide-card');
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    function updateSlide() {
+      slides.forEach((s, idx) => {
+        s.classList.toggle('active', idx === currentSlide);
+      });
+      const ind = document.getElementById('slideIndicator');
+      if (currentSlide === 0) {
+        ind.textContent = "Title Slide";
+      } else {
+        ind.textContent = `Slide ${currentSlide} / ${totalSlides - 1}`;
+      }
+      
+      const currentNotes = slides[currentSlide].getAttribute('data-notes') || "No speaker notes recorded for this slide.";
+      document.getElementById('speakerNotesText').textContent = currentNotes;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    function toggleNotes() {
+      document.getElementById('notesPanel').classList.toggle('open');
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      } else if (e.key === 's' || e.key === 'S') {
+        toggleNotes();
+      }
+    });
+
+    // Initialize
+    updateSlide();
+  </script>
+</body>
+</html>
