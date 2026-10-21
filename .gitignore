@@ -6,6 +6,7 @@ target/
 .idea/
 *.iml
 .vscode/
+*.code-workspace
 .settings/
 .classpath
 .project

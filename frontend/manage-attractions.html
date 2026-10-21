@@ -206,7 +206,7 @@
 
             <div class="col-md-4">
               <label class="form-label small fw-bold">Distance from Atulugama (km) <span class="text-danger">*</span></label>
-              <input type="number" step="0.1" min="0" max="60" class="form-control" id="attrDistance" required placeholder="e.g. 19.5">
+              <input type="number" step="0.1" min="0" max="500" class="form-control" id="attrDistance" required placeholder="e.g. 19.5">
             </div>
             <div class="col-md-4">
               <label class="form-label small fw-bold">Visit Duration (Minutes) <span class="text-danger">*</span></label>
@@ -223,11 +223,11 @@
             </div>
             <div class="col-md-3">
               <label class="form-label small fw-bold">Latitude <span class="text-danger">*</span></label>
-              <input type="number" step="0.0001" class="form-control" id="attrLat" required placeholder="e.g. 6.5833">
+              <input type="number" step="any" class="form-control" id="attrLat" required placeholder="e.g. 6.5833">
             </div>
             <div class="col-md-3">
               <label class="form-label small fw-bold">Longitude <span class="text-danger">*</span></label>
-              <input type="number" step="0.0001" class="form-control" id="attrLng" required placeholder="e.g. 79.9667">
+              <input type="number" step="any" class="form-control" id="attrLng" required placeholder="e.g. 79.9667">
             </div>
 
             <div class="col-md-6">
@@ -238,7 +238,7 @@
                 </button>
               </div>
               <div class="input-group">
-                <input type="url" class="form-control" id="attrImage" required placeholder="https://images.unsplash.com/...">
+                <input type="text" class="form-control" id="attrImage" required placeholder="https://images.unsplash.com/... or js/assets/...">
                 <label class="btn btn-outline-secondary" title="Upload local image file" for="attrImageFileInput" style="cursor:pointer;">
                   <i class="bi bi-upload"></i>
                   <input type="file" id="attrImageFileInput" accept="image/*" class="d-none">
@@ -253,7 +253,7 @@
             </div>
             <div class="col-md-6">
               <label class="form-label small fw-bold">Google Maps URL</label>
-              <input type="url" class="form-control" id="attrGoogleMapsUrl" placeholder="https://maps.google.com/?q=...">
+              <input type="text" class="form-control" id="attrGoogleMapsUrl" placeholder="https://maps.google.com/?q=...">
             </div>
           </div>
           <div class="mt-4 pt-2 border-top d-flex justify-content-end gap-2">
@@ -420,7 +420,7 @@
               <div class="tab-pane fade show active pt-2" id="cat-pane-url">
                 <div class="input-group">
                   <span class="input-group-text bg-white"><i class="bi bi-globe text-muted"></i></span>
-                  <input type="url" class="form-control" id="catImageUrlInput" placeholder="https://images.unsplash.com/photo-...">
+                  <input type="text" class="form-control" id="catImageUrlInput" placeholder="https://images.unsplash.com/... or js/assets/...">
                   <button type="button" class="btn btn-outline-primary" id="btnApplyCatUrl">
                     <i class="bi bi-check-lg me-1"></i> Apply
                   </button>

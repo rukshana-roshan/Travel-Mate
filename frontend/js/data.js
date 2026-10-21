@@ -8,7 +8,7 @@ const TM_CATEGORIES = [
     name: "Recreation",
     icon: "bi-controller",
     description: "Theme parks, water parks, and leisure family zones",
-    imageUrl: "https://images.unsplash.com/photo-1582650625119-3a31f8418399?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "js/assets/Recreation.jpg",
     color: "#f2542d",
     isFeatured: true
   },
@@ -17,7 +17,7 @@ const TM_CATEGORIES = [
     name: "Adventure",
     icon: "bi-speedometer2",
     description: "Motorsports, go-karting, and high-energy sports",
-    imageUrl: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "js/assets/adventure.jpg",
     color: "#0f5c5c",
     isFeatured: true
   },
@@ -26,7 +26,7 @@ const TM_CATEGORIES = [
     name: "Nature",
     icon: "bi-tree",
     description: "Serene freshwater lakes, lush waterfalls, and nature trails",
-    imageUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "js/assets/Nature.jpg",
     color: "#10b981",
     isFeatured: true
   },
@@ -35,7 +35,7 @@ const TM_CATEGORIES = [
     name: "Beaches",
     icon: "bi-water",
     description: "Golden sandy coasts, sunset viewing, and ocean breezes",
-    imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "js/assets/calido beach.jpeg",
     color: "#0284c7",
     isFeatured: true
   },
@@ -44,7 +44,7 @@ const TM_CATEGORIES = [
     name: "Religious Places",
     icon: "bi-bank",
     description: "Sacred Buddhist shrines, iconic stupas, and spiritual landmarks",
-    imageUrl: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "js/assets/Religious Places.webp",
     color: "#e8a33d",
     isFeatured: true
   },
@@ -53,7 +53,7 @@ const TM_CATEGORIES = [
     name: "Historical Attractions",
     icon: "bi-compass",
     description: "Colonial heritage, Edwardian architecture, and historical mansions",
-    imageUrl: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "js/assets/Historical Attractions.jpg",
     color: "#8b5cf6",
     isFeatured: true
   },
@@ -74,7 +74,7 @@ const TM_ATTRACTIONS = [
     latitude: 6.7135,
     longitude: 79.9897,
     googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=6.7135,79.9897",
-    imageUrl: "https://images.unsplash.com/photo-1582650625119-3a31f8418399?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "js/assets/perlbay.jpeg",
     averageRating: 4.8
   },
   {
@@ -91,7 +91,7 @@ const TM_ATTRACTIONS = [
     latitude: 6.7144,
     longitude: 79.9880,
     googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=6.7144,79.9880",
-    imageUrl: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "js/assets/Karting Circuit.jpeg",
     averageRating: 4.7
   },
   {
@@ -108,7 +108,7 @@ const TM_ATTRACTIONS = [
     latitude: 6.7458,
     longitude: 79.9325,
     googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=6.7458,79.9325",
-    imageUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "js/assets/Bolgoda Lake.jpeg",
     averageRating: 4.6
   },
   {
@@ -125,7 +125,7 @@ const TM_ATTRACTIONS = [
     latitude: 6.6660,
     longitude: 79.9298,
     googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=6.6660,79.9298",
-    imageUrl: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "js/assets/Wadduwa Beach.jpeg",
     averageRating: 4.5
   },
   {
@@ -142,7 +142,7 @@ const TM_ATTRACTIONS = [
     latitude: 6.6410,
     longitude: 79.9450,
     googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=6.6410,79.9450",
-    imageUrl: "https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "js/assets/Pothupitiya Beach.jpeg",
     averageRating: 4.4
   },
   {
@@ -159,7 +159,7 @@ const TM_ATTRACTIONS = [
     latitude: 6.5828,
     longitude: 79.9599,
     googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=6.5828,79.9599",
-    imageUrl: "https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "js/assets/Kalutara Bodhiya.jpeg",
     averageRating: 4.9
   },
   {
@@ -176,7 +176,7 @@ const TM_ATTRACTIONS = [
     latitude: 6.5822,
     longitude: 79.9605,
     googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=6.5822,79.9605",
-    imageUrl: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "js/assets/Gangatilaka Viharaya.jpeg",
     averageRating: 4.8
   },
   {
@@ -193,7 +193,7 @@ const TM_ATTRACTIONS = [
     latitude: 6.5750,
     longitude: 79.9820,
     googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=6.5750,79.9820",
-    imageUrl: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "js/assets/Richmond Castle.jpeg",
     averageRating: 4.6
   },
   {
@@ -210,7 +210,7 @@ const TM_ATTRACTIONS = [
     latitude: 6.5785,
     longitude: 79.9545,
     googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=6.5785,79.9545",
-    imageUrl: "https://images.unsplash.com/photo-1520454974749-611b7248ffdb?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "js/assets/Calido Beach.jpeg",
     averageRating: 4.5
   },
   {
@@ -227,7 +227,7 @@ const TM_ATTRACTIONS = [
     latitude: 6.6028,
     longitude: 80.0410,
     googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=6.6028,80.0410",
-    imageUrl: "https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "js/assets/Thudugala Ella.jpeg",
     averageRating: 4.7
   }
 ];

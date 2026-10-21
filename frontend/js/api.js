@@ -357,6 +357,49 @@ function tmMockGetContactMessages() {
   return [...TM_SAVED_MESSAGES];
 }
 
+function tmMockGetAttraction(id) {
+  const numId = Number(id);
+  return TM_ATTRACTIONS.find((a) => a.id === numId || String(a.id) === String(id)) || null;
+}
+
+const TM_ATTRACTIONS_STORAGE_KEY = "tm_attractions_data";
+const TM_CATEGORIES_STORAGE_KEY = "tm_categories_data";
+
+(function tmInitMockStorage() {
+  try {
+    const saved = localStorage.getItem(TM_ATTRACTIONS_STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length) {
+        TM_ATTRACTIONS.length = 0;
+        TM_ATTRACTIONS.push(...parsed);
+      }
+    }
+  } catch (e) {}
+  try {
+    const saved = localStorage.getItem(TM_CATEGORIES_STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length) {
+        TM_CATEGORIES.length = 0;
+        TM_CATEGORIES.push(...parsed);
+      }
+    }
+  } catch (e) {}
+})();
+
+function tmSaveMockAttractions() {
+  try {
+    localStorage.setItem(TM_ATTRACTIONS_STORAGE_KEY, JSON.stringify(TM_ATTRACTIONS));
+  } catch (e) {}
+}
+
+function tmSaveMockCategories() {
+  try {
+    localStorage.setItem(TM_CATEGORIES_STORAGE_KEY, JSON.stringify(TM_CATEGORIES));
+  } catch (e) {}
+}
+
 function tmMockFilterAttractions({ categoryId, keyword } = {}) {
   let list = [...TM_ATTRACTIONS];
   if (categoryId) list = list.filter((a) => a.categoryId === Number(categoryId));
@@ -378,27 +421,34 @@ function tmMockCreateAttraction(dto) {
     googleMapsUrl: dto.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${dto.latitude},${dto.longitude}`
   };
   TM_ATTRACTIONS.unshift(record);
+  tmSaveMockAttractions();
   return record;
 }
 
 function tmMockUpdateAttraction(id, dto) {
-  const idx = TM_ATTRACTIONS.findIndex((a) => a.id === Number(id));
+  const numId = Number(id);
+  const idx = TM_ATTRACTIONS.findIndex((a) => a.id === numId || String(a.id) === String(id));
   const cat = TM_CATEGORIES.find((c) => c.id === Number(dto.categoryId));
   if (idx > -1) {
     TM_ATTRACTIONS[idx] = {
       ...TM_ATTRACTIONS[idx],
       ...dto,
-      id: Number(id),
+      id: TM_ATTRACTIONS[idx].id,
       categoryName: cat ? cat.name : TM_ATTRACTIONS[idx].categoryName
     };
+    tmSaveMockAttractions();
     return TM_ATTRACTIONS[idx];
   }
   return dto;
 }
 
 function tmMockDeleteAttraction(id) {
-  const idx = TM_ATTRACTIONS.findIndex((a) => a.id === Number(id));
-  if (idx > -1) TM_ATTRACTIONS.splice(idx, 1);
+  const numId = Number(id);
+  const idx = TM_ATTRACTIONS.findIndex((a) => a.id === numId || String(a.id) === String(id));
+  if (idx > -1) {
+    TM_ATTRACTIONS.splice(idx, 1);
+    tmSaveMockAttractions();
+  }
 }
 
 function tmMockGetCategories() {
@@ -416,26 +466,31 @@ function tmMockCreateCategory(dto) {
     attractionCount: 0
   };
   TM_CATEGORIES.push(record);
+  tmSaveMockCategories();
   return record;
 }
 
 function tmMockUpdateCategory(id, dto) {
-  const idx = TM_CATEGORIES.findIndex((c) => c.id === Number(id));
+  const numId = Number(id);
+  const idx = TM_CATEGORIES.findIndex((c) => c.id === numId || String(c.id) === String(id));
   if (idx > -1) {
     TM_CATEGORIES[idx] = {
       ...TM_CATEGORIES[idx],
       ...dto,
-      id: Number(id)
+      id: TM_CATEGORIES[idx].id
     };
+    tmSaveMockCategories();
     return TM_CATEGORIES[idx];
   }
   return dto;
 }
 
 function tmMockDeleteCategory(id) {
-  const idx = TM_CATEGORIES.findIndex((c) => c.id === Number(id));
+  const numId = Number(id);
+  const idx = TM_CATEGORIES.findIndex((c) => c.id === numId || String(c.id) === String(id));
   if (idx > -1) {
     TM_CATEGORIES.splice(idx, 1);
+    tmSaveMockCategories();
   }
 }
 

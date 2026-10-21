@@ -61,8 +61,8 @@ async function tmRenderHomeCategories() {
     })
     .join("");
 
-  if (select) {
-    select.insertAdjacentHTML("beforeend", categories.map((c) => `<option value="${c.id}">${c.name}</option>`).join(""));
+  if (select && categories.length > 0) {
+    select.innerHTML = `<option value="">All Categories</option>` + categories.map((c) => `<option value="${c.id}">${c.name}</option>`).join("");
   }
 }
 
