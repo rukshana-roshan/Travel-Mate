@@ -1,0 +1,22 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Deploy with: connect this repo on Render and choose "New > Blueprint".
+# Fill in DATABASE_URL / DATABASE_USERNAME / DATABASE_PASSWORD in the
+# dashboard once your MySQL instance exists (Render's own managed MySQL,
+# PlanetScale, or any reachable MySQL host all work).
+
+services:
+  - type: web
+    name: travel-mate-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_USERNAME
+        sync: false
+      - key: DATABASE_PASSWORD
+        sync: false
+    healthCheckPath: /api/categories
