@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact Us — TravelMate Smart Tourist Day-Visit Planner</title>
+<meta name="description" content="Send your questions, feedback, or tourist inquiries regarding Atulugama and Kalutara District attractions to the TravelMate team." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .tm-contact-hero {
+    background: linear-gradient(135deg, rgba(18, 59, 93, 0.95) 0%, rgba(19, 184, 166, 0.88) 100%), url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    color: #fff;
+    padding: 70px 0 50px;
+  }
+  .tm-contact-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px;
+    box-shadow: var(--shadow-md);
+  }
+  .tm-contact-info-pill {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .tm-contact-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(19, 184, 166, 0.12);
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body data-page="contact">
+
+<!-- ===================== NAVIGATION BAR ===================== -->
+<nav class="tm-nav sticky-top">
+  <div class="container-tm">
+    <a href="index.html" class="tm-brand">
+      <span class="mark"><i class="bi bi-compass-fill"></i></span>
+      <span>TravelMate<small>Discover More. Travel Smarter.</small></span>
+    </a>
+    <div class="tm-nav-links">
+      <a href="index.html" data-nav="home">Home</a>
+      <a href="places.html" data-nav="places">Explore Destinations</a>
+      <a href="itinerary.html" data-nav="itinerary">Plan My Trip</a>
+      <a href="about.html" data-nav="about">About Us</a>
+      <a href="contact.html" data-nav="contact" class="active">Contact</a>
+      <a href="favorites.html" data-nav="favorites">Favorites</a>
+    </div>
+    <div class="tm-nav-actions">
+      <button class="icon-btn" data-theme-toggle title="Toggle Dark/Light Mode"><i class="bi bi-moon-stars" data-theme-icon></i></button>
+      <span data-auth-slot></span>
+      <a href="login.html" class="btn-tm btn-tm-outline btn-tm-sm" data-auth-hide><i class="bi bi-shield-lock"></i> Admin Login</a>
+      <button class="tm-nav-toggle d-lg-none" aria-label="Toggle navigation"><i class="bi bi-list fs-3"></i></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO HEADER ===================== -->
+<header class="tm-contact-hero">
+  <div class="container-tm">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="badge rounded-pill px-3 py-2 mb-3 text-uppercase fw-semibold" style="background: rgba(255, 255, 255, 0.2); color: #fff; letter-spacing: 1px;">
+          <i class="bi bi-chat-dots-fill me-1"></i> Inquiries &amp; Feedback
+        </span>
+        <h1 class="text-white mb-2" style="font-family: var(--font-display); font-weight:700; font-size:clamp(2rem, 3.8vw, 2.8rem);">
+          Get in Touch With TravelMate
+        </h1>
+        <p class="mb-0 fs-5" style="color: rgba(255,255,255,0.88); max-width:620px;">
+          Have questions about attractions around Atulugama or feedback on your day itinerary? Send us a message and we'll be glad to help.
+        </p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== CONTACT CONTENT ===================== -->
+<main class="container-tm py-5">
+  <div class="row g-5">
+    
+    <!-- LEFT COLUMN: Contact Context & Project Info -->
+    <div class="col-lg-5">
+      <span class="text-uppercase fw-bold text-secondary small tracking-wider">Academic Project Contact</span>
+      <h3 class="fw-bold mb-3" style="color: var(--primary);">We Value Your Inquiry</h3>
+      <p class="text-muted leading-relaxed mb-4">
+        TravelMate is developed as an academic software engineering project for ITE2953 at the University of Moratuwa. All inquiries submitted via this form are stored securely in our database and can be reviewed in the administrator dashboard.
+      </p>
+
+      <div class="tm-contact-info-pill">
+        <div class="tm-contact-icon"><i class="bi bi-mortarboard-fill"></i></div>
+        <div>
+          <strong class="d-block text-dark">Academic Institution</strong>
+          <span class="text-muted small">Faculty of Information Technology<br>University of Moratuwa, Sri Lanka</span>
+        </div>
+      </div>
+
+      <div class="tm-contact-info-pill">
+        <div class="tm-contact-icon"><i class="bi bi-person-badge-fill"></i></div>
+        <div>
+          <strong class="d-block text-dark">Lead Student Developer</strong>
+          <span class="text-muted small">Rukshana Roshan (Registration No: E2410132)<br>Module: ITE2953 – Software Project</span>
+        </div>
+      </div>
+
+      <div class="tm-contact-info-pill">
+        <div class="tm-contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
+        <div>
+          <strong class="d-block text-dark">Focal Tourism Region</strong>
+          <span class="text-muted small">Atulugama &amp; 25km Circuit (Bandaragama, Wadduwa, Kalutara, Matugama)</span>
+        </div>
+      </div>
+
+      <div class="p-3 rounded-4 bg-light border mt-2">
+        <small class="text-muted d-block">
+          <i class="bi bi-shield-lock-fill text-success me-1"></i>
+          <strong>Privacy Note:</strong> Your contact details are stored securely in the MySQL database and used strictly for academic evaluation and inquiry responses.
+        </small>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: Contact Form -->
+    <div class="col-lg-7">
+      <div class="tm-contact-card">
+        <h4 class="fw-bold mb-2" style="color: var(--primary);">Send Us a Message</h4>
+        <p class="text-muted small mb-4">Please fill in all required fields. We will process your message promptly.</p>
+
+        <!-- Response Alert Banner -->
+        <div class="alert alert-success d-none mb-4 rounded-3" id="contactSuccessAlert" role="alert">
+          <i class="bi bi-check-circle-fill me-2"></i>
+          <span id="contactSuccessMsg">Thank you! Your message has been received and saved securely.</span>
+        </div>
+        <div class="alert alert-danger d-none mb-4 rounded-3" id="contactErrorAlert" role="alert">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          <span id="contactErrorMsg">Failed to send message. Please review your inputs and try again.</span>
+        </div>
+
+        <form id="contactForm" novalidate>
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label small fw-bold text-uppercase text-muted">Your Full Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="contactName" placeholder="e.g. Ruwan Silva" required minlength="2" maxlength="100">
+              <div class="invalid-feedback">Please enter your full name (minimum 2 characters).</div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-bold text-uppercase text-muted">Email Address <span class="text-danger">*</span></label>
+              <input type="email" class="form-control" id="contactEmail" placeholder="e.g. ruwan@example.com" required>
+              <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-uppercase text-muted">Subject <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="contactSubject" placeholder="e.g. Question regarding visiting Richmond Castle" required minlength="3" maxlength="200">
+            <div class="invalid-feedback">Please provide a clear subject (minimum 3 characters).</div>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label small fw-bold text-uppercase text-muted">Your Message <span class="text-danger">*</span></label>
+            <textarea class="form-control" id="contactMessage" rows="5" placeholder="Write your questions, recommendations, or travel feedback here..." required minlength="10" maxlength="2000"></textarea>
+            <div class="invalid-feedback">Please provide your message details (minimum 10 characters).</div>
+          </div>
+
+          <button type="submit" class="btn-tm btn-tm-primary w-100 py-3 fw-bold" id="contactSubmitBtn">
+            <i class="bi bi-send-fill me-2"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="tm-footer">
+  <div class="container-tm">
+    <div class="row g-4 mb-5">
+      <div class="col-lg-4 col-md-6">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <span class="mark p-2 rounded-3 bg-primary text-white"><i class="bi bi-compass-fill fs-4"></i></span>
+          <span class="fs-4 fw-bold" style="font-family: var(--font-display); color: var(--primary);">TravelMate</span>
+        </div>
+        <p class="text-muted mb-3">
+          Smart Tourist Day-Visit Planner dedicated to tourists exploring Atulugama, Bandaragama, Kalutara, and surrounding treasures in Sri Lanka.
+        </p>
+        <p class="small text-muted mb-0">
+          <strong>Final University Project:</strong> ITE2953<br>
+          <strong>Student:</strong> Rukshana Roshan (Reg: E2410132)<br>
+          <strong>Institution:</strong> University of Moratuwa, Sri Lanka
+        </p>
+      </div>
+
+      <div class="col-lg-2 col-md-6">
+        <h6 class="fw-bold text-uppercase mb-3" style="color: var(--primary); letter-spacing: 0.5px;">Explore</h6>
+        <ul class="list-unstyled mb-0 d-flex flex-column gap-2 small">
+          <li><a href="places.html" class="text-decoration-none text-muted">All Attractions</a></li>
+          <li><a href="places.html?category=1" class="text-decoration-none text-muted">Beaches</a></li>
+          <li><a href="places.html?category=2" class="text-decoration-none text-muted">Nature &amp; Lakes</a></li>
+          <li><a href="places.html?category=3" class="text-decoration-none text-muted">Religious Heritage</a></li>
+          <li><a href="places.html?category=4" class="text-decoration-none text-muted">Historical Sites</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-2 col-md-6">
+        <h6 class="fw-bold text-uppercase mb-3" style="color: var(--primary); letter-spacing: 0.5px;">Navigation</h6>
+        <ul class="list-unstyled mb-0 d-flex flex-column gap-2 small">
+          <li><a href="index.html" class="text-decoration-none text-muted">Home</a></li>
+          <li><a href="places.html" class="text-decoration-none text-muted">Explore Destinations</a></li>
+          <li><a href="itinerary.html" class="text-decoration-none text-muted">Plan My Trip</a></li>
+          <li><a href="about.html" class="text-decoration-none text-muted">About Project</a></li>
+          <li><a href="contact.html" class="text-decoration-none text-muted">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="col-lg-4 col-md-6">
+        <h6 class="fw-bold text-uppercase mb-3" style="color: var(--primary); letter-spacing: 0.5px;">Project Scope &amp; Notice</h6>
+        <p class="small text-muted mb-3">
+          TravelMate calculates deterministic visit schedules based on geographic distance, typical road speeds, and visiting durations. All distances and opening hours are verified approximations.
+        </p>
+        <div class="p-3 rounded-3" style="background: rgba(19, 184, 166, 0.1); border: 1px solid rgba(19, 184, 166, 0.2);">
+          <small class="text-dark fw-semibold d-block mb-1"><i class="bi bi-shield-check text-success me-1"></i> Academic Integrity</small>
+          <small class="text-muted">Developed independently for academic evaluation at the Faculty of Information Technology, University of Moratuwa.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="tm-footer-bottom border-top pt-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+      <span class="small text-muted">&copy; 2026 TravelMate. All rights reserved. Rukshana Roshan (E2410132).</span>
+      <div class="d-flex gap-3 small">
+        <a href="index.html" class="text-decoration-none text-muted">Home</a>
+        <a href="places.html" class="text-decoration-none text-muted">Destinations</a>
+        <a href="itinerary.html" class="text-decoration-none text-muted">Planner</a>
+        <a href="about.html" class="text-decoration-none text-muted">About</a>
+        <a href="contact.html" class="text-decoration-none text-muted">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/main.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>

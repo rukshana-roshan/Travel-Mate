@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sign In / Register — TravelMate</title>
+<meta name="description" content="Sign in to your TravelMate account to access personalized day itineraries, save favorite destinations, and manage tourism records." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="login">
+
+<!-- ===================== NAVIGATION BAR ===================== -->
+<nav class="tm-nav sticky-top">
+  <div class="container-tm">
+    <a href="index.html" class="tm-brand">
+      <span class="mark"><i class="bi bi-compass-fill"></i></span>
+      <span>TravelMate<small>Discover More. Travel Smarter.</small></span>
+    </a>
+    <div class="tm-nav-links">
+      <a href="index.html" data-nav="home">Home</a>
+      <a href="places.html" data-nav="places">Explore Destinations</a>
+      <a href="itinerary.html" data-nav="itinerary">Plan My Trip</a>
+      <a href="about.html" data-nav="about">About Us</a>
+      <a href="contact.html" data-nav="contact">Contact</a>
+    </div>
+    <div class="tm-nav-actions">
+      <button class="icon-btn" data-theme-toggle title="Toggle Dark/Light Mode"><i class="bi bi-moon-stars" data-theme-icon></i></button>
+      <button class="tm-nav-toggle d-lg-none" aria-label="Toggle navigation"><i class="bi bi-list fs-3"></i></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== AUTH WRAPPER ===================== -->
+<div class="tm-auth-wrap">
+  <div class="tm-auth-art d-none d-lg-flex" style="background: linear-gradient(135deg, rgba(18, 59, 93, 0.95) 0%, rgba(19, 184, 166, 0.88) 100%), url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;">
+    <div class="content p-5 text-white">
+      <span class="badge rounded-pill px-3 py-2 mb-3 text-uppercase fw-semibold" style="background: rgba(255, 255, 255, 0.2); letter-spacing: 1px;">
+        <i class="bi bi-geo-alt-fill text-warning me-1"></i> Atulugama &bull; Kalutara Circuit
+      </span>
+      <h2 class="display-6 fw-bold mb-3" style="font-family: var(--font-display);">Plan Your Next Sri Lankan Day Adventure</h2>
+      <p class="fs-6 text-white-50 mb-0" style="max-width: 440px; line-height: 1.7;">
+        Sign in to save your customized itinerary, retain favorite destinations across devices, and access the administrator dashboard.
+      </p>
+    </div>
+  </div>
+
+  <div class="tm-auth-form-side">
+    <div class="tm-auth-box">
+      <!-- Session Alert (shown if user already has an active session) -->
+      <div id="alreadyLoggedInAlert" class="alert alert-info rounded-4 mb-4 d-none">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+          <div>
+            <i class="bi bi-person-check-fill me-1"></i>
+            Signed in as <strong id="sessionUserName">User</strong> (<span id="sessionUserRole">Role</span>)
+          </div>
+          <div class="d-flex gap-2">
+            <a id="sessionHomeBtn" href="index.html" class="btn btn-sm btn-primary">Go to Dashboard</a>
+            <button type="button" id="sessionLogoutBtn" class="btn btn-sm btn-outline-danger">Sign Out</button>
+          </div>
+        </div>
+      </div>
+
+      <ul class="nav nav-pills mb-4 justify-content-center" style="background:var(--surface-2);border-radius:var(--r-pill);padding:6px;">
+        <li class="nav-item flex-fill">
+          <button class="nav-link active w-100 fw-semibold" style="border-radius:var(--r-pill);" data-bs-toggle="pill" data-bs-target="#loginPane" type="button">
+            <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
+          </button>
+        </li>
+        <li class="nav-item flex-fill">
+          <button class="nav-link w-100 fw-semibold" style="border-radius:var(--r-pill);" data-bs-toggle="pill" data-bs-target="#registerPane" type="button">
+            <i class="bi bi-person-plus me-1"></i> Create Account
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <!-- LOGIN PANE -->
+        <div class="tab-pane fade show active" id="loginPane">
+          <h3 class="fw-bold mb-1" style="color: var(--primary);">Welcome Back</h3>
+          <p class="text-muted small mb-4">Tourists and administrators authenticate using the secure login form.</p>
+          
+          <form id="loginForm">
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-uppercase text-muted">Email Address</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light"><i class="bi bi-envelope text-muted"></i></span>
+                <input type="email" class="form-control" id="loginEmail" required placeholder="name@example.com">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-uppercase text-muted">Password</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light"><i class="bi bi-lock text-muted"></i></span>
+                <input type="password" class="form-control" id="loginPassword" required placeholder="••••••••">
+              </div>
+            </div>
+            
+            <button type="submit" class="btn-tm btn-tm-primary w-100 py-3 fw-bold mb-3" id="loginSubmitBtn">
+              Sign In <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+          </form>
+
+          <div class="card border rounded-4 p-3 bg-light shadow-sm mt-3">
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <i class="bi bi-shield-lock-fill text-warning fs-5"></i>
+              <strong class="small text-dark">University Demonstration Credentials</strong>
+            </div>
+            <div class="small text-muted mb-1">
+              <strong>Admin Account:</strong> <code>admin@travelmate.lk</code> / <code>admin123</code>
+            </div>
+            <div class="small text-muted mb-2">
+              Role is verified server-side with BCrypt password hashing.
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-primary w-100 fw-semibold" id="btnFillAdmin">
+              <i class="bi bi-magic me-1"></i> Auto-fill Demo Admin Credentials
+            </button>
+          </div>
+        </div>
+
+        <!-- REGISTER PANE -->
+        <div class="tab-pane fade" id="registerPane">
+          <h3 class="fw-bold mb-1" style="color: var(--primary);">Join TravelMate</h3>
+          <p class="text-muted small mb-4">Create your free tourist profile in seconds.</p>
+          
+          <form id="registerForm">
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-uppercase text-muted">Full Name</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light"><i class="bi bi-person text-muted"></i></span>
+                <input type="text" class="form-control" id="regName" required placeholder="e.g. Kasun Perera" minlength="2">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label small fw-bold text-uppercase text-muted">Email Address</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light"><i class="bi bi-envelope text-muted"></i></span>
+                <input type="email" class="form-control" id="regEmail" required placeholder="kasun@example.com">
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="form-label small fw-bold text-uppercase text-muted">Password</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light"><i class="bi bi-lock text-muted"></i></span>
+                <input type="password" class="form-control" id="regPassword" required minlength="6" placeholder="At least 6 characters">
+              </div>
+            </div>
+            <button type="submit" class="btn-tm btn-tm-primary w-100 py-3 fw-bold mb-2" id="regSubmitBtn">
+              Create Tourist Account <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js?v=2"></script>
+<script src="js/config.js?v=2"></script>
+<script src="js/api.js?v=2"></script>
+<script src="js/main.js?v=2"></script>
+<script src="js/login.js?v=2"></script>
+</body>
+</html>

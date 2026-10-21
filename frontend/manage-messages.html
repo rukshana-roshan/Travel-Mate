@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact Messages — TravelMate Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="tm-admin-body" data-page="admin">
+
+<div class="tm-admin-shell">
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="tm-admin-sidebar" id="adminSidebar">
+    <div class="brand">
+      <span class="mark"><i class="bi bi-compass-fill"></i></span>
+      <span>TravelMate<small>Admin Portal</small></span>
+    </div>
+
+    <nav class="tm-admin-nav">
+      <div class="section-label">Overview</div>
+      <a href="admin-dashboard.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+      
+      <div class="section-label">Management</div>
+      <a href="manage-attractions.html"><i class="bi bi-geo-alt-fill"></i> Manage Attractions</a>
+      <a href="manage-attractions.html#categories"><i class="bi bi-tags-fill"></i> Manage Categories</a>
+      <a href="manage-attractions.html#reviews"><i class="bi bi-chat-square-text-fill"></i> Manage Reviews</a>
+      <a href="manage-messages.html" class="active"><i class="bi bi-envelope-paper-fill"></i> Contact Inquiries <span class="badge bg-warning text-dark ms-auto" id="sideUnreadBadge" style="display:none;">0</span></a>
+
+      <div class="section-label">Live Site</div>
+      <a href="index.html" target="_blank"><i class="bi bi-box-arrow-up-right"></i> View Public Website</a>
+    </nav>
+
+    <div class="foot">
+      <div class="admin-id">
+        <div class="avatar" id="adminAvatar">A</div>
+        <div>
+          <div class="fw-bold text-white" id="adminName" style="font-size:.88rem;">Administrator</div>
+          <small id="adminEmail" class="text-white-50">admin@travelmate.lk</small>
+        </div>
+      </div>
+      <button class="btn-tm btn-tm-outline btn-tm-block btn-tm-sm mt-3" style="border-color:rgba(255,255,255,0.25); color:#fff;" id="logoutBtn">
+        <i class="bi bi-box-arrow-right me-1"></i> Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- ===================== MAIN CONTENT AREA ===================== -->
+  <main class="tm-admin-main">
+    <div class="tm-admin-topbar">
+      <div class="d-flex align-items-center gap-3">
+        <button class="tm-admin-menu-toggle icon-btn" id="sidebarToggle"><i class="bi bi-list"></i></button>
+        <div>
+          <h1 class="h4 mb-0 fw-bold" style="color: var(--primary);">Tourist Contact Inquiries</h1>
+          <small class="text-muted">Messages submitted via the public contact form</small>
+        </div>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <button class="icon-btn" data-theme-toggle title="Toggle Dark Mode"><i class="bi bi-moon-stars" data-theme-icon></i></button>
+        <button class="btn btn-outline-secondary btn-sm rounded-pill" id="refreshMessagesBtn">
+          <i class="bi bi-arrow-repeat me-1"></i> Refresh
+        </button>
+      </div>
+    </div>
+
+    <div class="tm-admin-content">
+      <div class="tm-table-card">
+        <div class="head d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <div>
+            <h5 class="fw-bold mb-0">Inbox Messages <span class="text-muted" id="msgCount">(0)</span></h5>
+            <small class="text-muted">Stored securely in MySQL database table <code>contact_messages</code></small>
+          </div>
+          <div class="d-flex gap-2">
+            <select id="msgFilterStatus" class="form-select form-select-sm" style="width: 150px; border-radius: var(--r-pill);">
+              <option value="all">All Messages</option>
+              <option value="unread">Unread Only</option>
+              <option value="read">Read Only</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="table-tm">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Sender</th>
+                <th>Subject</th>
+                <th>Received</th>
+                <th class="text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="messagesTableBody">
+              <tr><td colspan="5" class="text-center py-4 text-muted">Loading inquiries...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ===================== VIEW MESSAGE MODAL ===================== -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 border-0 shadow-lg">
+      <div class="modal-header border-bottom-0 pb-0">
+        <h5 class="modal-title fw-bold" id="messageModalLabel">Tourist Inquiry Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="p-3 rounded-3 bg-light border mb-3">
+          <div class="row g-2 small">
+            <div class="col-sm-4 text-muted">Sender Name:</div>
+            <div class="col-sm-8 fw-bold" id="mSenderName">--</div>
+            <div class="col-sm-4 text-muted">Email Address:</div>
+            <div class="col-sm-8"><a href="#" id="mSenderEmail" class="text-decoration-none">--</a></div>
+            <div class="col-sm-4 text-muted">Date Received:</div>
+            <div class="col-sm-8 text-muted" id="mReceivedDate">--</div>
+            <div class="col-sm-4 text-muted">Subject:</div>
+            <div class="col-sm-8 fw-semibold text-dark" id="mSubject">--</div>
+          </div>
+        </div>
+
+        <label class="form-label small fw-bold text-uppercase text-muted">Message Content</label>
+        <div class="p-3 rounded-3 border bg-surface" id="mContent" style="white-space: pre-wrap; line-height: 1.7; min-height: 120px;">
+          --
+        </div>
+
+        <div class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
+          <button type="button" class="btn btn-outline-danger btn-sm rounded-pill" id="mDeleteBtn">
+            <i class="bi bi-trash me-1"></i> Delete Message
+          </button>
+          <div class="d-flex gap-2">
+            <a href="#" class="btn btn-primary btn-sm rounded-pill" id="mReplyBtn">
+              <i class="bi bi-reply-fill me-1"></i> Reply via Email
+            </a>
+            <button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/main.js"></script>
+<script src="js/admin-guard.js"></script>
+<script src="js/manage-messages.js"></script>
+</body>
+</html>

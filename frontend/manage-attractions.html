@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Manage Attractions — TravelMate Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="tm-admin-body" data-page="admin">
+
+<div class="tm-admin-shell">
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="tm-admin-sidebar" id="adminSidebar">
+    <div class="brand">
+      <span class="mark"><i class="bi bi-compass-fill"></i></span>
+      <span>TravelMate<small>Admin Portal</small></span>
+    </div>
+
+    <nav class="tm-admin-nav">
+      <div class="section-label">Overview</div>
+      <a href="admin-dashboard.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+      
+      <div class="section-label">Management</div>
+      <a href="manage-attractions.html" class="active" data-tab-link="attractions"><i class="bi bi-geo-alt-fill"></i> Manage Attractions</a>
+      <a href="manage-attractions.html#categories" data-tab-link="categories"><i class="bi bi-tags-fill"></i> Manage Categories</a>
+      <a href="manage-attractions.html#reviews" data-tab-link="reviews"><i class="bi bi-chat-square-text-fill"></i> Manage Reviews</a>
+      <a href="manage-messages.html"><i class="bi bi-envelope-paper-fill"></i> Contact Inquiries</a>
+
+      <div class="section-label">Live Site</div>
+      <a href="index.html" target="_blank"><i class="bi bi-box-arrow-up-right"></i> View Public Website</a>
+    </nav>
+
+    <div class="foot">
+      <div class="admin-id">
+        <div class="avatar" id="adminAvatar">A</div>
+        <div>
+          <div class="fw-bold text-white" id="adminName" style="font-size:.88rem;">Administrator</div>
+          <small id="adminEmail" class="text-white-50">admin@travelmate.lk</small>
+        </div>
+      </div>
+      <button class="btn-tm btn-tm-outline btn-tm-block btn-tm-sm mt-3" style="border-color:rgba(255,255,255,0.25); color:#fff;" id="logoutBtn">
+        <i class="bi bi-box-arrow-right me-1"></i> Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- ===================== MAIN CONTENT AREA ===================== -->
+  <main class="tm-admin-main">
+    <div class="tm-admin-topbar">
+      <div class="d-flex align-items-center gap-3">
+        <button class="tm-admin-menu-toggle icon-btn" id="sidebarToggle"><i class="bi bi-list"></i></button>
+        <h1 id="topbarTitle" class="h4 mb-0 fw-bold" style="color: var(--primary);">Manage Attractions</h1>
+      </div>
+      <button class="icon-btn" data-theme-toggle title="Toggle Dark Mode"><i class="bi bi-moon-stars" data-theme-icon></i></button>
+    </div>
+
+    <div class="tm-admin-content">
+
+      <!-- ATTRACTIONS TAB -->
+      <div id="tabAttractions">
+        <div class="tm-table-card">
+          <div class="head d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div>
+              <h5 class="fw-bold mb-0">Registered Destinations <span class="text-muted" id="attrCount">(0)</span></h5>
+              <small class="text-muted">Destinations stored in MySQL within 25km of Atulugama</small>
+            </div>
+            <div class="d-flex gap-2 align-items-center">
+              <div class="position-relative">
+                <i class="bi bi-search position-absolute text-muted" style="left:12px;top:50%;transform:translateY(-50%);"></i>
+                <input type="text" id="attrSearch" class="form-control form-control-sm" style="padding-left:34px;width:240px;border-radius:var(--r-pill);" placeholder="Search destinations...">
+              </div>
+              <button class="btn-tm btn-tm-primary btn-tm-sm" id="openAddAttraction">
+                <i class="bi bi-plus-lg me-1"></i> Add Destination
+              </button>
+            </div>
+          </div>
+
+          <div style="overflow-x:auto;">
+            <table class="table-tm">
+              <thead>
+                <tr>
+                  <th>Attraction</th>
+                  <th>Category</th>
+                  <th>Location</th>
+                  <th>Distance</th>
+                  <th>Duration</th>
+                  <th>Fee</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="attractionsTableBody">
+                <tr><td colspan="7" class="text-center py-4 text-muted">Loading attractions...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORIES TAB -->
+      <div id="tabCategories" class="d-none">
+        <div class="tm-table-card">
+          <div class="head d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div class="d-flex align-items-center gap-2">
+              <h5 class="fw-bold mb-0">Destination Categories</h5>
+              <span class="badge bg-light text-dark border" id="catCount">(6)</span>
+              <small class="text-muted d-none d-md-inline ms-2">Visual taxonomy &amp; theme classification</small>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <div class="input-group input-group-sm" style="width: 220px;">
+                <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+                <input type="search" class="form-control border-start-0" id="catSearch" placeholder="Search categories...">
+              </div>
+              <button class="btn-tm btn-tm-primary btn-tm-sm text-nowrap" id="openAddCategory">
+                <i class="bi bi-plus-lg me-1"></i> Add Category
+              </button>
+            </div>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="table-tm">
+              <thead>
+                <tr>
+                  <th style="width:70px;">Cover</th>
+                  <th>Category</th>
+                  <th>Icon</th>
+                  <th>Description</th>
+                  <th>Destinations</th>
+                  <th>Status</th>
+                  <th class="text-end">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="categoriesTableBody">
+                <tr><td colspan="7" class="text-center py-4 text-muted">Loading categories...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- REVIEWS TAB -->
+      <div id="tabReviews" class="d-none">
+        <div class="tm-table-card">
+          <div class="head">
+            <h5 class="fw-bold mb-0">Tourist Reviews &amp; Feedback</h5>
+            <small class="text-muted">User-submitted ratings across destinations</small>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="table-tm">
+              <thead>
+                <tr>
+                  <th>Attraction</th>
+                  <th>Traveler</th>
+                  <th>Rating</th>
+                  <th>Comment</th>
+                  <th>Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="reviewsTableBody">
+                <tr><td colspan="6" class="text-center py-4 text-muted">Loading reviews...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- ===================== ATTRACTION ADD / EDIT MODAL ===================== -->
+<div class="modal fade" id="attractionModal" tabindex="-1" aria-labelledby="attractionModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content rounded-4 border-0 shadow-lg">
+      <div class="modal-header border-bottom-0 pb-0">
+        <h5 class="modal-title fw-bold" id="attractionModalTitle">Add Destination</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="attractionForm">
+          <input type="hidden" id="attrId">
+          <div class="row g-3">
+            <div class="col-md-7">
+              <label class="form-label small fw-bold">Destination Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="attrName" placeholder="e.g. Richmond Castle" required minlength="2">
+            </div>
+            <div class="col-md-5">
+              <label class="form-label small fw-bold">Category <span class="text-danger">*</span></label>
+              <select class="form-select" id="attrCategory" required></select>
+            </div>
+
+            <div class="col-md-12">
+              <label class="form-label small fw-bold">Geographic Location / Area <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="attrLocation" placeholder="e.g. Palatota, Kalutara District" required>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label small fw-bold">Detailed Description <span class="text-danger">*</span></label>
+              <textarea class="form-control" id="attrDescription" rows="3" placeholder="Provide background, significance, and visiting experience..." required minlength="10"></textarea>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label small fw-bold">Distance from Atulugama (km) <span class="text-danger">*</span></label>
+              <input type="number" step="0.1" min="0" max="60" class="form-control" id="attrDistance" required placeholder="e.g. 19.5">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label small fw-bold">Visit Duration (Minutes) <span class="text-danger">*</span></label>
+              <input type="number" step="5" min="15" max="480" class="form-control" id="attrDuration" required placeholder="e.g. 90">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label small fw-bold">Entrance Fee (Rs. 0 = Free) <span class="text-danger">*</span></label>
+              <input type="number" step="1" min="0" class="form-control" id="attrFee" required placeholder="e.g. 500">
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label small fw-bold">Opening Hours <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="attrHours" placeholder="e.g. 08:00 AM - 05:00 PM" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label small fw-bold">Latitude <span class="text-danger">*</span></label>
+              <input type="number" step="0.0001" class="form-control" id="attrLat" required placeholder="e.g. 6.5833">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label small fw-bold">Longitude <span class="text-danger">*</span></label>
+              <input type="number" step="0.0001" class="form-control" id="attrLng" required placeholder="e.g. 79.9667">
+            </div>
+
+            <div class="col-md-6">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <label class="form-label small fw-bold mb-0">Image URL / Upload <span class="text-danger">*</span></label>
+                <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none small text-danger" id="btnClearAttrImage" style="display:none;">
+                  <i class="bi bi-trash3"></i> Remove
+                </button>
+              </div>
+              <div class="input-group">
+                <input type="url" class="form-control" id="attrImage" required placeholder="https://images.unsplash.com/...">
+                <label class="btn btn-outline-secondary" title="Upload local image file" for="attrImageFileInput" style="cursor:pointer;">
+                  <i class="bi bi-upload"></i>
+                  <input type="file" id="attrImageFileInput" accept="image/*" class="d-none">
+                </label>
+              </div>
+              <div id="attrImagePreviewContainer" class="mt-2 d-none position-relative">
+                <img id="attrImagePreview" src="" alt="Destination preview" class="rounded-3 border w-100" style="height:110px; object-fit:cover;">
+                <button type="button" class="btn btn-sm btn-danger rounded-circle position-absolute top-0 end-0 m-2 p-1" style="width:26px; height:26px; display:inline-flex; align-items:center; justify-content:center;" id="btnQuickRemoveAttrImage" title="Delete image">
+                  <i class="bi bi-x-lg" style="font-size:0.75rem;"></i>
+                </button>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-bold">Google Maps URL</label>
+              <input type="url" class="form-control" id="attrGoogleMapsUrl" placeholder="https://maps.google.com/?q=...">
+            </div>
+          </div>
+          <div class="mt-4 pt-2 border-top d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn-tm btn-tm-primary px-4" id="saveAttrSubmitBtn">
+              <i class="bi bi-check2-circle me-1"></i> Save Destination
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CATEGORY ADD / EDIT MODAL ===================== -->
+<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content rounded-4 border-0 shadow-lg">
+      <div class="modal-header border-bottom pb-3">
+        <div class="d-flex align-items-center gap-2">
+          <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 38px; height: 38px; background: rgba(242, 84, 45, 0.12); color: var(--coral);">
+            <i class="bi bi-folder2-open fs-5" id="categoryModalHeaderIcon"></i>
+          </div>
+          <div>
+            <h5 class="modal-title fw-bold mb-0" id="categoryModalTitle">Add Category</h5>
+            <small class="text-muted" id="categoryModalSubtitle">Classification theme, imagery, and visual badges</small>
+          </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <!-- Usage info banner when editing -->
+        <div id="catUsageAlert" class="alert alert-light border rounded-3 py-2 px-3 mb-3 d-flex align-items-center justify-content-between d-none">
+          <div class="d-flex align-items-center gap-2 small">
+            <i class="bi bi-info-circle-fill text-primary"></i>
+            <span id="catUsageText" class="text-muted">Associated with <strong>0 destinations</strong></span>
+          </div>
+          <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none fw-semibold" id="catFilterDestinationsBtn">
+            View in Destinations <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+
+        <form id="categoryForm">
+          <input type="hidden" id="catId">
+          <input type="hidden" id="catImageUrl">
+          <input type="hidden" id="catColor" value="#f2542d">
+
+          <!-- Row 1: Name & Color -->
+          <div class="row g-3 mb-3">
+            <div class="col-md-7">
+              <label class="form-label small fw-bold">Category Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="catName" placeholder="e.g. Recreation &amp; Theme Parks" required minlength="2">
+            </div>
+            <div class="col-md-5">
+              <label class="form-label small fw-bold">Theme Accent Color</label>
+              <div class="d-flex align-items-center gap-2 pt-1">
+                <button type="button" class="cat-color-dot active" data-color="#f2542d" style="background:#f2542d;" title="Coral"></button>
+                <button type="button" class="cat-color-dot" data-color="#0f5c5c" style="background:#0f5c5c;" title="Deep Teal"></button>
+                <button type="button" class="cat-color-dot" data-color="#10b981" style="background:#10b981;" title="Emerald"></button>
+                <button type="button" class="cat-color-dot" data-color="#0284c7" style="background:#0284c7;" title="Ocean Blue"></button>
+                <button type="button" class="cat-color-dot" data-color="#e8a33d" style="background:#e8a33d;" title="Amber"></button>
+                <button type="button" class="cat-color-dot" data-color="#8b5cf6" style="background:#8b5cf6;" title="Purple"></button>
+                <input type="color" id="catColorPicker" value="#f2542d" class="form-control form-control-color border-0 p-0" style="width:30px;height:30px;cursor:pointer;" title="Pick custom color">
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Bootstrap Icon with Live Preview & Palette -->
+          <div class="mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label class="form-label small fw-bold mb-0">Bootstrap Icon Class <span class="text-danger">*</span></label>
+              <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none small" id="btnToggleIconPalette">
+                <i class="bi bi-grid-3x3-gap me-1"></i> Browse Icon Library
+              </button>
+            </div>
+            <div class="input-group">
+              <input type="text" class="form-control" id="catIcon" placeholder="e.g. bi-controller" required>
+              <span class="input-group-text bg-white px-3" id="catIconBadge">
+                <i id="catIconPreview" class="bi bi-controller fs-5 text-primary"></i>
+              </span>
+            </div>
+
+            <!-- Collapsible Icon Quick-Selector -->
+            <div id="catIconPalette" class="border rounded-3 p-3 mt-2 bg-light d-none">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="small fw-bold text-muted">Click an icon to apply:</span>
+                <button type="button" class="btn-close btn-sm" id="btnCloseIconPalette" aria-label="Close"></button>
+              </div>
+              <div class="d-flex flex-wrap gap-2" id="catIconGrid">
+                <!-- Injected dynamically via manage-attractions.js -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 3: Description with counter -->
+          <div class="mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label class="form-label small fw-bold mb-0">Description <span class="text-danger">*</span></label>
+              <small id="catDescCount" class="text-muted">0 / 500</small>
+            </div>
+            <textarea class="form-control" id="catDescription" rows="2" placeholder="Brief explanation of attractions included in this category..." required maxlength="500"></textarea>
+          </div>
+
+          <!-- ===================== CATEGORY IMAGE SECTION ===================== -->
+          <div class="card border rounded-3 p-3 mb-3 bg-light-subtle">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <label class="form-label small fw-bold mb-0">
+                <i class="bi bi-image me-1 text-primary"></i> Category Cover Image
+              </label>
+              <span id="catImageLoadedBadge" class="badge bg-success-subtle text-success border border-success-subtle d-none">
+                <i class="bi bi-check2-circle me-1"></i> Image Set
+              </span>
+            </div>
+
+            <!-- Live Image Preview Box -->
+            <div id="catImagePreviewWrapper" class="mb-3">
+              <!-- If image exists -->
+              <div id="catImageBannerBox" class="cat-preview-banner d-none">
+                <img id="catPreviewImg" src="" alt="Category cover preview" class="cat-preview-img">
+                <div class="cat-preview-overlay">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge bg-dark bg-opacity-75 px-2 py-1"><i class="bi bi-image me-1"></i> Active Cover Image</span>
+                    <div class="d-flex gap-2">
+                      <button type="button" class="btn btn-sm btn-danger rounded-pill px-3 shadow-sm" id="btnDeleteCatImage" title="Delete current image">
+                        <i class="bi bi-trash3 me-1"></i> Remove Image
+                      </button>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-2">
+                    <span class="small text-white-50"><i class="bi bi-info-circle me-1"></i> Displays as backdrop on category explorer and cards</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- If NO image exists (empty placeholder) -->
+              <div id="catImageEmptyBox" class="cat-dropzone" role="button" tabindex="0">
+                <i class="bi bi-cloud-arrow-up text-primary" style="font-size: 2.2rem;"></i>
+                <div class="fw-semibold small text-dark mt-1">No cover image uploaded</div>
+                <small class="text-muted d-block">Add an image below via direct URL, file upload, or 1-click travel preset</small>
+              </div>
+            </div>
+
+            <!-- 3 Image Options (Tabs) -->
+            <ul class="nav nav-pills nav-fill mb-2 p-1 bg-white border rounded-3" id="catImageTabs" role="tablist">
+              <li class="nav-item">
+                <button class="nav-link active py-1 small fw-semibold" id="cat-tab-url" data-bs-toggle="pill" data-bs-target="#cat-pane-url" type="button">
+                  <i class="bi bi-link-45deg me-1"></i> Image URL
+                </button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link py-1 small fw-semibold" id="cat-tab-file" data-bs-toggle="pill" data-bs-target="#cat-pane-file" type="button">
+                  <i class="bi bi-upload me-1"></i> Upload File
+                </button>
+              </li>
+              <li class="nav-item">
+                <button class="nav-link py-1 small fw-semibold" id="cat-tab-presets" data-bs-toggle="pill" data-bs-target="#cat-pane-presets" type="button">
+                  <i class="bi bi-stars me-1"></i> Travel Presets
+                </button>
+              </li>
+            </ul>
+
+            <div class="tab-content" id="catImageTabsContent">
+              <!-- Option 1: URL Input -->
+              <div class="tab-pane fade show active pt-2" id="cat-pane-url">
+                <div class="input-group">
+                  <span class="input-group-text bg-white"><i class="bi bi-globe text-muted"></i></span>
+                  <input type="url" class="form-control" id="catImageUrlInput" placeholder="https://images.unsplash.com/photo-...">
+                  <button type="button" class="btn btn-outline-primary" id="btnApplyCatUrl">
+                    <i class="bi bi-check-lg me-1"></i> Apply
+                  </button>
+                </div>
+                <small class="text-muted d-block mt-1">Paste a high-resolution image link from Unsplash, Pexels, or your web server.</small>
+              </div>
+
+              <!-- Option 2: File Upload Input -->
+              <div class="tab-pane fade pt-2" id="cat-pane-file">
+                <div class="input-group">
+                  <input type="file" class="form-control" id="catImageFileInput" accept="image/png, image/jpeg, image/webp, image/gif">
+                  <button type="button" class="btn btn-outline-secondary" id="btnClearCatFileInput" title="Clear chosen file">
+                    <i class="bi bi-x-circle"></i>
+                  </button>
+                </div>
+                <small class="text-muted d-block mt-1">Upload an image directly from your computer (PNG, JPG, WEBP under 5MB).</small>
+              </div>
+
+              <!-- Option 3: Presets Grid -->
+              <div class="tab-pane fade pt-2" id="cat-pane-presets">
+                <div class="row g-2" id="catPresetsContainer">
+                  <!-- Injected via JavaScript -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 5: Feature & Status Toggles -->
+          <div class="row g-2 p-3 bg-light rounded-3 border mb-3">
+            <div class="col-sm-6">
+              <div class="form-check form-switch mb-0">
+                <input class="form-check-input" type="checkbox" id="catIsFeatured" checked>
+                <label class="form-check-label small fw-semibold" for="catIsFeatured">
+                  Feature on Homepage
+                  <span class="text-muted d-block font-normal" style="font-size:0.75rem;">Showcase as prominent card on the tourist landing page</span>
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-check form-switch mb-0">
+                <input class="form-check-input" type="checkbox" id="catIsActive" checked>
+                <label class="form-check-label small fw-semibold" for="catIsActive">
+                  Active Category
+                  <span class="text-muted d-block font-normal" style="font-size:0.75rem;">Display in tourist filters and destination searches</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 6: Live Card Preview Accordion -->
+          <div class="accordion mb-3" id="catPreviewAccordion">
+            <div class="accordion-item border rounded-3 overflow-hidden">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed py-2 px-3 small fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#catCardPreviewCollapse">
+                  <i class="bi bi-eye me-2 text-primary"></i> Live Tourist Card Preview
+                </button>
+              </h2>
+              <div id="catCardPreviewCollapse" class="accordion-collapse collapse" data-bs-parent="#catPreviewAccordion">
+                <div class="accordion-body p-3 bg-light">
+                  <div class="mx-auto" style="max-width: 320px;">
+                    <div class="cat-card-mockup p-4 position-relative">
+                      <div class="d-flex align-items-center justify-content-center rounded-circle mb-3" id="mockupIconBg" style="width:56px;height:56px;background:rgba(242,84,45,0.12);">
+                        <i id="mockupIcon" class="bi bi-controller" style="font-size:1.5rem;color:#f2542d;"></i>
+                      </div>
+                      <h5 class="fw-bold mb-1" id="mockupTitle">Category Name</h5>
+                      <p class="text-muted small mb-2" id="mockupDesc">Brief explanation of attractions included...</p>
+                      <span class="badge rounded-pill text-dark border bg-light" id="mockupCount">0 spots</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal Action Buttons -->
+          <div class="mt-4 pt-3 border-top d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn-tm btn-tm-primary px-4" id="saveCatSubmitBtn">
+              <i class="bi bi-check2-circle me-1"></i> Save Category
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/config.js"></script>
+<script src="js/api.js"></script>
+<script src="js/main.js"></script>
+<script src="js/admin-guard.js"></script>
+<script src="js/manage-attractions.js"></script>
+</body>
+</html>
