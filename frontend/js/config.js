@@ -16,6 +16,13 @@ const TM_CONFIG = {
   },
 
   apiBaseUrl() {
-    return this.isLocal() ? this.LOCAL_API_URL : this.PROD_API_URL;
+    if (this.isLocal()) {
+      if (typeof window !== "undefined" && window.location && (window.location.protocol === "http:" || window.location.protocol === "https:")) {
+        const host = window.location.hostname || "localhost";
+        return `${window.location.protocol}//${host}:8080/api`;
+      }
+      return this.LOCAL_API_URL;
+    }
+    return this.PROD_API_URL;
   },
 };

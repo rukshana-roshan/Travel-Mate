@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const resp = await TM_API.submitContact(dto);
       successMsg.textContent =
-        (resp && resp.message) ||
+        (resp && (resp.responseMessage || resp.msg)) ||
         "Thank you! Your message has been received and saved securely in our database.";
       successAlert.classList.remove("d-none");
 

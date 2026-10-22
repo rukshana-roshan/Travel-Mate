@@ -143,8 +143,10 @@ async function tmOpenAttractionModal(id) {
         document.getElementById("attrDuration").value = a.visitDurationMinutes || a.durationMinutes || 60;
         document.getElementById("attrFee").value = a.entranceFee !== undefined ? a.entranceFee : 0;
         document.getElementById("attrHours").value = a.openingHours || "08:00 AM - 05:00 PM";
-        document.getElementById("attrLat").value = a.latitude || "";
-        document.getElementById("attrLng").value = a.longitude || "";
+        const latEl = document.getElementById("attrLat");
+        const lngEl = document.getElementById("attrLng");
+        if (latEl) latEl.value = a.latitude || "";
+        if (lngEl) lngEl.value = a.longitude || "";
         document.getElementById("attrImage").value = a.imageUrl || "";
         document.getElementById("attrGoogleMapsUrl").value = a.googleMapsUrl || "";
 
@@ -172,6 +174,23 @@ async function tmSaveAttraction(e) {
     saveBtn.disabled = true;
   }
 
+  let lat = Number(document.getElementById("attrLat")?.value) || 0;
+  let lng = Number(document.getElementById("attrLng")?.value) || 0;
+  const mapsUrlVal = document.getElementById("attrGoogleMapsUrl").value.trim();
+
+  // If no coordinates are present, attempt to extract from Google Maps URL
+  if ((!lat || !lng) && mapsUrlVal) {
+    const coordsMatch = mapsUrlVal.match(/@?(-?\d+\.\d+),(-?\d+\.\d+)/);
+    if (coordsMatch) {
+      lat = parseFloat(coordsMatch[1]);
+      lng = parseFloat(coordsMatch[2]);
+    }
+  }
+
+  // Fallback to Atulugama regional coordinates if none specified
+  if (!lat) lat = 6.7022;
+  if (!lng) lng = 80.0528;
+
   const dto = {
     name: document.getElementById("attrName").value.trim(),
     categoryId: Number(document.getElementById("attrCategory").value),
@@ -182,10 +201,10 @@ async function tmSaveAttraction(e) {
     durationMinutes: Number(document.getElementById("attrDuration").value),
     entranceFee: Number(document.getElementById("attrFee").value),
     openingHours: document.getElementById("attrHours").value.trim(),
-    latitude: Number(document.getElementById("attrLat").value),
-    longitude: Number(document.getElementById("attrLng").value),
+    latitude: lat,
+    longitude: lng,
     imageUrl: document.getElementById("attrImage").value.trim(),
-    googleMapsUrl: document.getElementById("attrGoogleMapsUrl").value.trim(),
+    googleMapsUrl: mapsUrlVal || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(document.getElementById("attrName").value.trim())}`,
   };
 
   try {

@@ -217,20 +217,19 @@
               <input type="number" step="1" min="0" class="form-control" id="attrFee" required placeholder="e.g. 500">
             </div>
 
+            <input type="hidden" id="attrLat">
+            <input type="hidden" id="attrLng">
+
             <div class="col-md-6">
               <label class="form-label small fw-bold">Opening Hours <span class="text-danger">*</span></label>
               <input type="text" class="form-control" id="attrHours" placeholder="e.g. 08:00 AM - 05:00 PM" required>
             </div>
-            <div class="col-md-3">
-              <label class="form-label small fw-bold">Latitude <span class="text-danger">*</span></label>
-              <input type="number" step="any" class="form-control" id="attrLat" required placeholder="e.g. 6.5833">
-            </div>
-            <div class="col-md-3">
-              <label class="form-label small fw-bold">Longitude <span class="text-danger">*</span></label>
-              <input type="number" step="any" class="form-control" id="attrLng" required placeholder="e.g. 79.9667">
+            <div class="col-md-6">
+              <label class="form-label small fw-bold">Google Maps URL</label>
+              <input type="text" class="form-control" id="attrGoogleMapsUrl" placeholder="https://maps.google.com/?q=...">
             </div>
 
-            <div class="col-md-6">
+            <div class="col-12">
               <div class="d-flex justify-content-between align-items-center mb-1">
                 <label class="form-label small fw-bold mb-0">Image URL / Upload <span class="text-danger">*</span></label>
                 <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none small text-danger" id="btnClearAttrImage" style="display:none;">
@@ -250,10 +249,6 @@
                   <i class="bi bi-x-lg" style="font-size:0.75rem;"></i>
                 </button>
               </div>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label small fw-bold">Google Maps URL</label>
-              <input type="text" class="form-control" id="attrGoogleMapsUrl" placeholder="https://maps.google.com/?q=...">
             </div>
           </div>
           <div class="mt-4 pt-2 border-top d-flex justify-content-end gap-2">

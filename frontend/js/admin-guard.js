@@ -36,4 +36,18 @@ document.addEventListener("DOMContentLoaded", () => {
   if (sidebarToggle && sidebar) {
     sidebarToggle.addEventListener("click", () => sidebar.classList.toggle("open"));
   }
+
+  // Update sidebar unread inquiries badge if present
+  const unreadBadge = document.getElementById("sideUnreadBadge");
+  if (unreadBadge && typeof TM_API !== "undefined" && TM_API.getContactMessages) {
+    TM_API.getContactMessages().then((msgs) => {
+      const count = Array.isArray(msgs) ? msgs.filter((m) => !m.isRead && !m.read).length : 0;
+      if (count > 0) {
+        unreadBadge.textContent = count;
+        unreadBadge.style.display = "inline-block";
+      } else {
+        unreadBadge.style.display = "none";
+      }
+    }).catch(() => {});
+  }
 });

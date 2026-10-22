@@ -176,19 +176,30 @@ const TM_API = {
 
   /* ---- Contact Messages ---- */
   async submitContact(dto) {
+    let saved = null;
     if (this.LIVE) {
       try {
-        return await this._send("/contact", "POST", dto);
-      } catch (e) {}
+        saved = await this._send("/contact", "POST", dto);
+      } catch (e) {
+        console.warn("[TM_API] Backend submission failed, fallback to local storage:", e.message);
+      }
     }
-    return tmMockSubmitContact(dto);
+    // Always persist in local storage as well so it immediately appears in the admin inbox
+    const localItem = tmMockSubmitContact(saved || dto);
+    return saved || localItem;
   },
 
   async getContactMessages() {
     if (this.LIVE) {
       try {
-        return await this._get("/contact/messages");
-      } catch (e) {}
+        const backendList = await this._get("/contact/messages");
+        if (Array.isArray(backendList)) {
+          tmSyncBackendMessagesToLocal(backendList);
+          return tmMockGetContactMessages();
+        }
+      } catch (e) {
+        console.warn("[TM_API] Fetching backend contact messages failed, using local storage:", e.message);
+      }
     }
     return tmMockGetContactMessages();
   },
@@ -196,35 +207,47 @@ const TM_API = {
   async markMessageRead(id) {
     if (this.LIVE) {
       try {
-        return await this._send(`/contact/messages/${id}/read`, "PUT");
-      } catch (e) {}
+        await this._send(`/contact/messages/${id}/read`, "PUT");
+      } catch (e) {
+        console.warn("[TM_API] Mark read backend call failed:", e.message);
+      }
     }
+    tmMockMarkMessageRead(id);
     return true;
   },
 
   async deleteContactMessage(id) {
     if (this.LIVE) {
       try {
-        return await this._send(`/contact/messages/${id}`, "DELETE");
-      } catch (e) {}
+        await this._send(`/contact/messages/${id}`, "DELETE");
+      } catch (e) {
+        console.warn("[TM_API] Delete message backend call failed:", e.message);
+      }
     }
+    tmMockDeleteContactMessage(id);
     return true;
   },
 
   /* ---- Admin Stats ---- */
   async getAdminStats() {
+    let stats = null;
     if (this.LIVE) {
       try {
-        return await this._get("/admin/stats");
+        stats = await this._get("/admin/stats");
       } catch (e) {}
     }
+    if (stats) {
+      return stats;
+    }
+    const msgs = tmMockGetContactMessages();
+    const unread = msgs.filter((m) => !m.isRead && !m.read).length;
     return {
       totalDestinations: TM_ATTRACTIONS.length,
       totalCategories: TM_CATEGORIES.length,
       totalSavedItineraries: 3,
-      totalContactMessages: 1,
-      unreadContactMessages: 1,
-      totalReviews: TM_REVIEWS.length,
+      totalContactMessages: msgs.length,
+      unreadContactMessages: unread,
+      totalReviews: (typeof TM_REVIEWS !== "undefined" ? TM_REVIEWS.length : 4),
     };
   },
 
@@ -335,7 +358,9 @@ const TM_API = {
 };
 
 /* ---------- Mock & Algorithm Fallback Helpers ---------- */
-const TM_SAVED_MESSAGES = [
+const TM_MESSAGES_STORAGE_KEY = "tm_contact_messages_data";
+
+const TM_DEFAULT_MESSAGES = [
   {
     id: 1,
     name: "David Miller",
@@ -347,14 +372,96 @@ const TM_SAVED_MESSAGES = [
   }
 ];
 
+let TM_SAVED_MESSAGES = [];
+
+function tmInitMessagesStorage() {
+  try {
+    const saved = localStorage.getItem(TM_MESSAGES_STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        TM_SAVED_MESSAGES = parsed;
+        return;
+      }
+    }
+  } catch (e) {
+    console.warn("Failed to load messages from localStorage:", e);
+  }
+  TM_SAVED_MESSAGES = JSON.parse(JSON.stringify(TM_DEFAULT_MESSAGES));
+  tmSaveMockMessages();
+}
+
+function tmSaveMockMessages() {
+  try {
+    localStorage.setItem(TM_MESSAGES_STORAGE_KEY, JSON.stringify(TM_SAVED_MESSAGES));
+  } catch (e) {
+    console.warn("Failed to save messages to localStorage:", e);
+  }
+}
+
 function tmMockSubmitContact(dto) {
-  const item = { ...dto, id: Date.now(), isRead: false, createdAt: new Date().toISOString() };
-  TM_SAVED_MESSAGES.unshift(item);
+  if (!TM_SAVED_MESSAGES || !TM_SAVED_MESSAGES.length) {
+    tmInitMessagesStorage();
+  }
+  const item = {
+    id: dto.id || Date.now(),
+    name: dto.name || "",
+    email: dto.email || "",
+    subject: dto.subject || "",
+    message: dto.message || "",
+    isRead: Boolean(dto.isRead || dto.read),
+    createdAt: dto.createdAt || new Date().toISOString()
+  };
+
+  const existingIdx = TM_SAVED_MESSAGES.findIndex((m) => String(m.id) === String(item.id));
+  if (existingIdx >= 0) {
+    TM_SAVED_MESSAGES[existingIdx] = { ...TM_SAVED_MESSAGES[existingIdx], ...item };
+  } else {
+    TM_SAVED_MESSAGES.unshift(item);
+  }
+  tmSaveMockMessages();
   return item;
 }
 
 function tmMockGetContactMessages() {
+  if (!TM_SAVED_MESSAGES || !TM_SAVED_MESSAGES.length) {
+    tmInitMessagesStorage();
+  }
   return [...TM_SAVED_MESSAGES];
+}
+
+function tmMockMarkMessageRead(id) {
+  if (!TM_SAVED_MESSAGES || !TM_SAVED_MESSAGES.length) {
+    tmInitMessagesStorage();
+  }
+  const m = TM_SAVED_MESSAGES.find((x) => String(x.id) === String(id));
+  if (m) {
+    m.isRead = true;
+    m.read = true;
+    tmSaveMockMessages();
+    return m;
+  }
+  return null;
+}
+
+function tmMockDeleteContactMessage(id) {
+  if (!TM_SAVED_MESSAGES || !TM_SAVED_MESSAGES.length) {
+    tmInitMessagesStorage();
+  }
+  TM_SAVED_MESSAGES = TM_SAVED_MESSAGES.filter((x) => String(x.id) !== String(id));
+  tmSaveMockMessages();
+  return true;
+}
+
+function tmSyncBackendMessagesToLocal(backendList) {
+  if (!Array.isArray(backendList)) return;
+  if (!TM_SAVED_MESSAGES || !TM_SAVED_MESSAGES.length) {
+    tmInitMessagesStorage();
+  }
+  const backendIds = new Set(backendList.map((m) => String(m.id)));
+  const localOnly = TM_SAVED_MESSAGES.filter((m) => !backendIds.has(String(m.id)));
+  TM_SAVED_MESSAGES = [...localOnly, ...backendList];
+  tmSaveMockMessages();
 }
 
 function tmMockGetAttraction(id) {
@@ -366,6 +473,7 @@ const TM_ATTRACTIONS_STORAGE_KEY = "tm_attractions_data";
 const TM_CATEGORIES_STORAGE_KEY = "tm_categories_data";
 
 (function tmInitMockStorage() {
+  tmInitMessagesStorage();
   try {
     const saved = localStorage.getItem(TM_ATTRACTIONS_STORAGE_KEY);
     if (saved) {

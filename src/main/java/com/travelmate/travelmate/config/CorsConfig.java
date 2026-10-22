@@ -5,11 +5,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * Global CORS configuration so the static frontend (served separately,
- * e.g. GitHub Pages or Live Server) can call the REST API.
+ * Global CORS and static resource configuration so the static frontend
+ * (served separately or via Spring Boot) can seamlessly call the REST API.
  */
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
@@ -22,6 +23,12 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedHeaders("*")
                 .allowCredentials(true)
                 .maxAge(3600);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/frontend/**")
+                .addResourceLocations("file:frontend/", "classpath:/static/frontend/");
     }
 
     @Bean
