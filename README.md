@@ -10,10 +10,8 @@
 ---
 
 ### Academic Project Credentials
-- **Course Module:** ITE2953 – Software Project (Final Year Project – 60% Final Mark)
 - **Academic Institution:** Faculty of Information Technology, University of Moratuwa, Sri Lanka
 - **Student Name:** Rukshana Roshan
-- **Registration Number:** E2410132
 - **Academic Year:** 2026
 
 ---
