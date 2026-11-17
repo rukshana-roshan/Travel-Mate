@@ -38,13 +38,13 @@ public class ReviewServiceImpl implements ReviewService {
         Attraction attraction = attractionRepository.findById(dto.getAttractionId())
                 .orElseThrow(() -> new ResourceNotFoundException("Attraction not found with id: " + dto.getAttractionId()));
 
-        if (dto.getUserName() != null && !dto.getUserName().trim().isEmpty() && !dto.getUserName().trim().equalsIgnoreCase(user.getFullName())) {
-            user.setFullName(dto.getUserName().trim());
-            userRepository.save(user);
-        }
+        String reviewerName = (dto.getUserName() != null && !dto.getUserName().trim().isEmpty())
+                ? dto.getUserName().trim()
+                : (user != null ? user.getFullName() : "Anonymous Traveler");
 
         Review review = Review.builder()
                 .user(user)
+                .userName(reviewerName)
                 .attraction(attraction)
                 .rating(dto.getRating())
                 .comment(dto.getComment())
@@ -86,12 +86,16 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     private ReviewDTO toDTO(Review r) {
+        String reviewerName = (r.getUserName() != null && !r.getUserName().trim().isEmpty())
+                ? r.getUserName()
+                : (r.getUser() != null ? r.getUser().getFullName() : "Anonymous Traveler");
+
         return ReviewDTO.builder()
                 .id(r.getId())
-                .userId(r.getUser().getId())
-                .userName(r.getUser().getFullName())
-                .attractionId(r.getAttraction().getId())
-                .attractionName(r.getAttraction().getName())
+                .userId(r.getUser() != null ? r.getUser().getId() : null)
+                .userName(reviewerName)
+                .attractionId(r.getAttraction() != null ? r.getAttraction().getId() : null)
+                .attractionName(r.getAttraction() != null ? r.getAttraction().getName() : null)
                 .rating(r.getRating())
                 .comment(r.getComment())
                 .createdAt(r.getCreatedAt())

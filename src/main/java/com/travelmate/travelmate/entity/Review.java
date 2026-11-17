@@ -20,6 +20,9 @@ public class Review {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Column(name = "user_name", length = 100)
+    private String userName;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "attraction_id", nullable = false)
     private Attraction attraction;
@@ -38,13 +41,18 @@ public class Review {
     public Review() {
     }
 
-    public Review(Long id, User user, Attraction attraction, Integer rating, String comment, LocalDateTime createdAt) {
+    public Review(Long id, User user, String userName, Attraction attraction, Integer rating, String comment, LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
+        this.userName = userName;
         this.attraction = attraction;
         this.rating = rating;
         this.comment = comment;
         this.createdAt = createdAt;
+    }
+
+    public Review(Long id, User user, Attraction attraction, Integer rating, String comment, LocalDateTime createdAt) {
+        this(id, user, user != null ? user.getFullName() : null, attraction, rating, comment, createdAt);
     }
 
     @PrePersist
@@ -57,6 +65,9 @@ public class Review {
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
+
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
 
     public Attraction getAttraction() { return attraction; }
     public void setAttraction(Attraction attraction) { this.attraction = attraction; }
@@ -77,6 +88,7 @@ public class Review {
     public static class Builder {
         private Long id;
         private User user;
+        private String userName;
         private Attraction attraction;
         private Integer rating;
         private String comment;
@@ -84,13 +96,14 @@ public class Review {
 
         public Builder id(Long id) { this.id = id; return this; }
         public Builder user(User user) { this.user = user; return this; }
+        public Builder userName(String userName) { this.userName = userName; return this; }
         public Builder attraction(Attraction attraction) { this.attraction = attraction; return this; }
         public Builder rating(Integer rating) { this.rating = rating; return this; }
         public Builder comment(String comment) { this.comment = comment; return this; }
         public Builder createdAt(LocalDateTime createdAt) { this.createdAt = createdAt; return this; }
 
         public Review build() {
-            return new Review(id, user, attraction, rating, comment, createdAt);
+            return new Review(id, user, userName, attraction, rating, comment, createdAt);
         }
     }
 }

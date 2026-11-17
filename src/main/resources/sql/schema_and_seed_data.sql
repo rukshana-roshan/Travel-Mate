@@ -121,6 +121,7 @@ CREATE TABLE IF NOT EXISTS favorites (
 CREATE TABLE IF NOT EXISTS reviews (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT NOT NULL,
+    user_name VARCHAR(100),
     attraction_id BIGINT NOT NULL,
     rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
     comment VARCHAR(1000),
