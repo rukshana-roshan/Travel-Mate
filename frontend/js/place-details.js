@@ -137,8 +137,19 @@ async function tmRenderDetails() {
         setTimeout(() => { window.location.href = "login.html"; }, 1000);
         return;
       }
-      document.getElementById("reviewName").value = session.fullName;
+      if (session.fullName === "System Administrator") {
+        session.fullName = "Rukshana Roshan";
+        tmSetSession(session);
+      }
+      const nameInput = document.getElementById("reviewName");
+      if (nameInput) {
+        const currentVal = nameInput.value.trim();
+        nameInput.value = (currentVal && currentVal !== "System Administrator") ? currentVal : (session.fullName || "Rukshana Roshan");
+      }
       reviewModal.show();
+      setTimeout(() => {
+        if (nameInput) nameInput.select();
+      }, 350);
     });
   }
 
@@ -152,7 +163,8 @@ async function tmRenderDetails() {
         tmToast("Please sign in to submit a review", "error");
         return;
       }
-      const enteredName = document.getElementById("reviewName")?.value.trim() || session.fullName || "Traveler";
+      const nameInput = document.getElementById("reviewName");
+      const enteredName = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : (session.fullName || "Rukshana Roshan");
       const dto = {
         userId: session.userId,
         userName: enteredName,
@@ -162,14 +174,14 @@ async function tmRenderDetails() {
       };
       try {
         await TM_API.addReview(dto);
-        if (enteredName && enteredName !== session.fullName) {
+        if (enteredName) {
           session.fullName = enteredName;
           tmSetSession(session);
         }
         if (reviewModal) reviewModal.hide();
         reviewForm.reset();
         tmToast("Thank you! Your review has been recorded.", "success");
-        tmRenderReviews(a.id);
+        await tmRenderReviews(a.id);
         const refreshed = await TM_API.getAttractionById(a.id);
         if (refreshed) {
           document.getElementById("dRating").innerHTML = tmStars(refreshed.averageRating);

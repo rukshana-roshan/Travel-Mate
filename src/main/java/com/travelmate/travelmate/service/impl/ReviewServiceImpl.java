@@ -42,6 +42,11 @@ public class ReviewServiceImpl implements ReviewService {
                 ? dto.getUserName().trim()
                 : (user != null ? user.getFullName() : "Anonymous Traveler");
 
+        if (user != null && dto.getUserName() != null && !dto.getUserName().trim().isEmpty() && !dto.getUserName().trim().equalsIgnoreCase(user.getFullName())) {
+            user.setFullName(reviewerName);
+            userRepository.save(user);
+        }
+
         Review review = Review.builder()
                 .user(user)
                 .userName(reviewerName)
