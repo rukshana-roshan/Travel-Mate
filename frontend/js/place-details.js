@@ -152,15 +152,20 @@ async function tmRenderDetails() {
         tmToast("Please sign in to submit a review", "error");
         return;
       }
+      const enteredName = document.getElementById("reviewName")?.value.trim() || session.fullName || "Traveler";
       const dto = {
         userId: session.userId,
-        userName: session.fullName,
+        userName: enteredName,
         attractionId: a.id,
         rating: Number(document.getElementById("reviewRating").value),
         comment: document.getElementById("reviewComment").value.trim(),
       };
       try {
         await TM_API.addReview(dto);
+        if (enteredName && enteredName !== session.fullName) {
+          session.fullName = enteredName;
+          tmSetSession(session);
+        }
         if (reviewModal) reviewModal.hide();
         reviewForm.reset();
         tmToast("Thank you! Your review has been recorded.", "success");

@@ -38,6 +38,11 @@ public class ReviewServiceImpl implements ReviewService {
         Attraction attraction = attractionRepository.findById(dto.getAttractionId())
                 .orElseThrow(() -> new ResourceNotFoundException("Attraction not found with id: " + dto.getAttractionId()));
 
+        if (dto.getUserName() != null && !dto.getUserName().trim().isEmpty() && !dto.getUserName().trim().equalsIgnoreCase(user.getFullName())) {
+            user.setFullName(dto.getUserName().trim());
+            userRepository.save(user);
+        }
+
         Review review = Review.builder()
                 .user(user)
                 .attraction(attraction)
