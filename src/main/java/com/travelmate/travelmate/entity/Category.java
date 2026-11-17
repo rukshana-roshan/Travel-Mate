@@ -26,7 +26,8 @@ public class Category {
     @Column(length = 500)
     private String description;
 
-    @Column(name = "image_url", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "image_url", columnDefinition = "LONGTEXT")
     private String imageUrl;
 
     @Column(length = 30)

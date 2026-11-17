@@ -736,26 +736,59 @@ function tmInitCategoryControls() {
     });
   }
 
+function tmProcessImageFile(file, maxWidth = 1280, maxHeight = 800, quality = 0.85) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (loadEvent) => {
+      const rawData = loadEvent.target.result;
+      const img = new Image();
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+        if (width <= maxWidth && height <= maxHeight && file.size < 300 * 1024) {
+          return resolve(rawData);
+        }
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+        if (height > maxHeight) {
+          width = Math.round((width * maxHeight) / height);
+          height = maxHeight;
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL("image/jpeg", quality));
+      };
+      img.onerror = () => resolve(rawData);
+      img.src = rawData;
+    };
+    reader.onerror = () => resolve(null);
+    reader.readAsDataURL(file);
+  });
+}
+
   // Image File Upload input (FileReader)
   const fileInput = document.getElementById("catImageFileInput");
   if (fileInput) {
-    fileInput.addEventListener("change", (e) => {
+    fileInput.addEventListener("change", async (e) => {
       const file = e.target.files && e.target.files[0];
       if (!file) return;
 
-      if (file.size > 5 * 1024 * 1024) {
-        tmToast("Image file size must be less than 5MB", "error");
+      if (file.size > 10 * 1024 * 1024) {
+        tmToast("Image file size must be less than 10MB", "error");
         fileInput.value = "";
         return;
       }
 
-      const reader = new FileReader();
-      reader.onload = (loadEvent) => {
-        const dataUrl = loadEvent.target.result;
+      const dataUrl = await tmProcessImageFile(file, 1400, 900, 0.85);
+      if (dataUrl) {
         tmSetCatImage(dataUrl);
         tmToast("Local image uploaded successfully", "success");
-      };
-      reader.readAsDataURL(file);
+      }
     });
   }
 
@@ -823,21 +856,20 @@ function tmInitCategoryControls() {
   }
 
   if (attrFileInput && attrImgInput) {
-    attrFileInput.addEventListener("change", (e) => {
+    attrFileInput.addEventListener("change", async (e) => {
       const file = e.target.files && e.target.files[0];
       if (!file) return;
-      if (file.size > 5 * 1024 * 1024) {
-        tmToast("Destination image must be under 5MB", "error");
+      if (file.size > 10 * 1024 * 1024) {
+        tmToast("Destination image must be under 10MB", "error");
         attrFileInput.value = "";
         return;
       }
-      const reader = new FileReader();
-      reader.onload = (loadEvent) => {
-        attrImgInput.value = loadEvent.target.result;
+      const dataUrl = await tmProcessImageFile(file, 1400, 900, 0.85);
+      if (dataUrl) {
+        attrImgInput.value = dataUrl;
         updateAttrPreview();
-        tmToast("Destination photo loaded", "success");
-      };
-      reader.readAsDataURL(file);
+        tmToast("Destination photo loaded and optimized", "success");
+      }
     });
   }
 

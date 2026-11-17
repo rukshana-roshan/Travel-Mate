@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS categories (
     name VARCHAR(100) NOT NULL UNIQUE,
     icon VARCHAR(255),
     description VARCHAR(500),
-    image_url TEXT,
+    image_url LONGTEXT,
     color VARCHAR(30) DEFAULT '#f2542d',
     is_featured BOOLEAN DEFAULT FALSE
 );
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS attractions (
     entrance_fee DECIMAL(10,2) DEFAULT 0.00,
     latitude DOUBLE NOT NULL,
     longitude DOUBLE NOT NULL,
-    image_url VARCHAR(500),
+    image_url LONGTEXT,
     google_maps_url VARCHAR(500),
     average_rating DOUBLE DEFAULT 0,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,

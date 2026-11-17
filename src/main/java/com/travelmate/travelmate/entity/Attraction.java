@@ -52,7 +52,8 @@ public class Attraction {
     @Column(nullable = false)
     private Double longitude;
 
-    @Column(name = "image_url", length = 500)
+    @Lob
+    @Column(name = "image_url", columnDefinition = "LONGTEXT")
     private String imageUrl;
 
     @Column(name = "google_maps_url", length = 500)
