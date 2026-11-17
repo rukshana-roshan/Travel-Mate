@@ -16,6 +16,7 @@ function tmInitTheme() {
   const saved = localStorage.getItem(TM.THEME_KEY) ||
     (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   document.documentElement.setAttribute("data-theme", saved);
+  document.documentElement.setAttribute("data-bs-theme", saved);
   tmUpdateThemeIcon(saved);
 }
 
@@ -23,6 +24,7 @@ function tmToggleTheme() {
   const current = document.documentElement.getAttribute("data-theme") || "light";
   const next = current === "light" ? "dark" : "light";
   document.documentElement.setAttribute("data-theme", next);
+  document.documentElement.setAttribute("data-bs-theme", next);
   localStorage.setItem(TM.THEME_KEY, next);
   tmUpdateThemeIcon(next);
 }
