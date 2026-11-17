@@ -108,7 +108,7 @@ async function tmRenderAttractionsTable() {
     );
   } catch (err) {
     console.error("Error loading attractions table:", err);
-    body.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-danger">Error loading attractions from server.</td></tr>`;
+    body.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-danger">Cannot load live attractions. Check that MySQL and the Spring Boot backend are running, then refresh this page.</td></tr>`;
   }
 }
 

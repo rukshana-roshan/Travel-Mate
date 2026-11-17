@@ -100,28 +100,22 @@ async function tmRenderPlaces() {
 function tmBindTripButtons(container) {
   if (!container) return;
   container.querySelectorAll("[data-add-trip-id]").forEach((btn) => {
-    btn.addEventListener("click", async (e) => {
+    btn.onclick = (e) => {
       e.preventDefault();
       const id = btn.getAttribute("data-add-trip-id");
-      try {
-        const item = await TM_API.getAttractionById(id);
-        if (item) {
-          const added = tmAddDestinationToPlan(item);
-          if (added) {
-            btn.innerHTML = `<i class="bi bi-check2"></i> Added`;
-            btn.classList.add("btn-success");
-            btn.classList.remove("btn-outline-primary");
-            setTimeout(() => {
-              btn.innerHTML = `<i class="bi bi-plus-circle"></i> Add to Trip`;
-              btn.classList.remove("btn-success");
-              btn.classList.add("btn-outline-primary");
-            }, 1800);
-          }
-        }
-      } catch (err) {
-        console.error("Add to plan error:", err);
+      const added = tmAddDestinationToPlan(id);
+      if (added) {
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = `<i class="bi bi-check2"></i> Added`;
+        btn.classList.add("btn-success");
+        btn.classList.remove("btn-primary");
+        setTimeout(() => {
+          btn.innerHTML = originalHtml;
+          btn.classList.remove("btn-success");
+          btn.classList.add("btn-primary");
+        }, 1800);
       }
-    });
+    };
   });
 }
 

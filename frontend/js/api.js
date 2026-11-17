@@ -10,12 +10,12 @@ const TM_API = {
 
   async _get(path) {
     try {
-      const res = await fetch(`${this.BASE_URL}${path}`);
+      const res = await fetch(`${this.BASE_URL}${path}`, { cache: "no-store" });
       const json = await res.json();
       if (!res.ok || json.success === false) throw new Error(json.message || "Request failed");
       return json.data;
     } catch (err) {
-      console.warn(`[TM_API] Fetch failed for ${path}, using mock fallback:`, err.message);
+      console.warn(`[TM_API] Fetch failed for ${path}, backend unavailable:`, err.message);
       throw err;
     }
   },
@@ -43,9 +43,10 @@ const TM_API = {
         const qs = new URLSearchParams();
         if (categoryId) qs.set("categoryId", categoryId);
         if (keyword) qs.set("keyword", keyword);
-        return await this._get(`/attractions${qs.toString() ? "?" + qs : ""}`);
-      } catch (e) {
-        // Fallback to local data
+        const res = await this._get(`/attractions${qs.toString() ? "?" + qs : ""}`);
+        if (Array.isArray(res) && res.length) return res;
+      } catch (err) {
+        console.warn("[TM_API] Backend attractions unavailable, falling back to local dataset:", err.message);
       }
     }
     return tmMockFilterAttractions({ categoryId, keyword });
@@ -55,87 +56,42 @@ const TM_API = {
     if (this.LIVE) {
       try {
         return await this._get(`/attractions/${id}`);
-      } catch (e) {}
+      } catch (err) {
+        console.warn(`[TM_API] Backend attraction #${id} unavailable, falling back:`, err.message);
+      }
     }
     return tmMockGetAttraction(id);
   },
-
-  async getAttractionById(id) {
-    return this.getAttraction(id);
-  },
-
-  async createAttraction(dto) {
-    if (this.LIVE) {
-      try {
-        return await this._send("/attractions", "POST", dto);
-      } catch (e) {}
-    }
-    return tmMockCreateAttraction(dto);
-  },
-
-  async updateAttraction(id, dto) {
-    if (this.LIVE) {
-      try {
-        return await this._send(`/attractions/${id}`, "PUT", dto);
-      } catch (e) {}
-    }
-    return tmMockUpdateAttraction(id, dto);
-  },
-
-  async deleteAttraction(id) {
-    if (this.LIVE) {
-      try {
-        return await this._send(`/attractions/${id}`, "DELETE");
-      } catch (e) {}
-    }
-    return tmMockDeleteAttraction(id);
-  },
+  async getAttractionById(id) { return this.getAttraction(id); },
+  async createAttraction(dto) { return this._send("/attractions", "POST", dto); },
+  async updateAttraction(id, dto) { return this._send(`/attractions/${id}`, "PUT", dto); },
+  async deleteAttraction(id) { return this._send(`/attractions/${id}`, "DELETE"); },
 
   /* ---- Categories ---- */
   async getCategories() {
     if (this.LIVE) {
       try {
-        return await this._get("/categories");
-      } catch (e) {}
+        const res = await this._get("/categories");
+        if (Array.isArray(res) && res.length) return res;
+      } catch (err) {
+        console.warn("[TM_API] Backend categories unavailable, falling back to local dataset:", err.message);
+      }
     }
     return tmMockGetCategories();
   },
-
   async getCategory(id) {
     if (this.LIVE) {
       try {
         return await this._get(`/categories/${id}`);
-      } catch (e) {}
+      } catch (err) {
+        console.warn(`[TM_API] Backend category #${id} unavailable:`, err.message);
+      }
     }
-    return tmMockGetCategories().find((c) => c.id === Number(id));
+    return TM_CATEGORIES.find((c) => c.id === Number(id)) || null;
   },
-
-  async createCategory(dto) {
-    if (this.LIVE) {
-      try {
-        return await this._send("/categories", "POST", dto);
-      } catch (e) {}
-    }
-    return tmMockCreateCategory(dto);
-  },
-
-  async updateCategory(id, dto) {
-    if (this.LIVE) {
-      try {
-        return await this._send(`/categories/${id}`, "PUT", dto);
-      } catch (e) {}
-    }
-    return tmMockUpdateCategory(id, dto);
-  },
-
-  async deleteCategory(id) {
-    if (this.LIVE) {
-      try {
-        return await this._send(`/categories/${id}`, "DELETE");
-      } catch (e) {}
-    }
-    return tmMockDeleteCategory(id);
-  },
+  async createCategory(dto) { return this._send("/categories", "POST", dto); },
+  async updateCategory(id, dto) { return this._send(`/categories/${id}`, "PUT", dto); },
+  async deleteCategory(id) { return this._send(`/categories/${id}`, "DELETE"); },
 
   /* ---- Itinerary Planning & Generation ---- */
   async generateItinerary(req) {

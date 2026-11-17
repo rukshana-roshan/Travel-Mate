@@ -125,6 +125,35 @@ TravelMate strictly adheres to the **Layered Architectural Pattern**:
 
 ## 7. Database Setup & Schema
 
+### Local live-data preview on Windows
+
+Start the installed MySQL service from an **Administrator PowerShell**:
+
+```powershell
+Start-Service MySQL80
+```
+
+Then, from the project directory in a normal PowerShell:
+
+```powershell
+.\scripts\start-live.ps1 -InitializeDatabase -PreviewData
+```
+
+This checks the configured local MySQL credentials, imports
+`src/main/resources/sql/schema_and_seed_data.sql`, previews current rows
+(excluding user password hashes), and starts Spring Boot on port **8081**.
+Open `http://localhost:8081/frontend/manage-attractions.html` and log in.
+Subsequent runs can use `.\scripts\start-live.ps1` without importing again.
+Use `-PreviewData` to inspect existing rows without importing seed data.
+
+The seed SQL is a setup file, not a live database viewer. Changes saved through
+the admin page update MySQL, not this file. Its attraction inserts preserve
+existing rows on duplicate IDs; importing it again does not reset attraction
+edits. Galle Fort is not included in the original ten seed attractions. If an
+earlier save happened while the backend was unavailable, reapply it through
+the admin page once the backend is running. Catalog API failures are now shown
+as errors instead of silently falling back to browser-only data.
+
 ### Database Details
 - **Database Name:** `travel_mate_db`
 - **Default Port:** `3306`

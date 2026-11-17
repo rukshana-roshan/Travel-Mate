@@ -17,11 +17,18 @@ const TM_CONFIG = {
 
   apiBaseUrl() {
     if (this.isLocal()) {
-      if (typeof window !== "undefined" && window.location && (window.location.protocol === "http:" || window.location.protocol === "https:")) {
-        const host = window.location.hostname || "localhost";
-        return `${window.location.protocol}//${host}:8080/api`;
+      // If served directly by Spring Boot on port 8080:
+      if (window.location.port === "8080") {
+        return `${window.location.origin}/api`;
       }
-      return this.LOCAL_API_URL;
+      // If served via Live Server (e.g. port 5500, 3000, 8000) or file://, direct requests to Spring Boot on port 8080
+      const host = (window.location.hostname && window.location.hostname !== "") ? window.location.hostname : "localhost";
+      const protocol = (window.location.protocol === "https:") ? "https:" : "http:";
+      return `${protocol}//${host}:8080/api`;
+    }
+    // Production (e.g. GitHub Pages or Render)
+    if (window.location.pathname.startsWith("/frontend/") && window.location.origin && !window.location.origin.includes("github.io")) {
+      return `${window.location.origin}/api`;
     }
     return this.PROD_API_URL;
   },

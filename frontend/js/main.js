@@ -176,15 +176,30 @@ function tmGetItinerary() {
 }
 function tmAddToItinerary(id) {
   let plan = tmGetItinerary();
-  if (plan.includes(id)) { tmToast("Already in your day plan", "info"); return false; }
-  plan.push(id);
+  const numId = Number(id);
+  if (plan.includes(numId)) { tmToast("Already in your day plan", "info"); return false; }
+  plan.push(numId);
   localStorage.setItem(TM.ITIN_KEY, JSON.stringify(plan));
   tmToast("Added to your day plan", "success");
+  tmUpdatePlanBadges();
   return true;
 }
 function tmRemoveFromItinerary(id) {
-  const plan = tmGetItinerary().filter((p) => p !== id);
+  const numId = Number(id);
+  const plan = tmGetItinerary().filter((p) => p !== numId);
   localStorage.setItem(TM.ITIN_KEY, JSON.stringify(plan));
+  tmUpdatePlanBadges();
+}
+function tmAddDestinationToPlan(item) {
+  if (!item) return false;
+  const id = typeof item === "object" ? Number(item.id) : Number(item);
+  return tmAddToItinerary(id);
+}
+function tmUpdatePlanBadges() {
+  const count = tmGetItinerary().length;
+  document.querySelectorAll("[data-plan-count]").forEach((el) => {
+    el.textContent = count;
+  });
 }
 
 /* ---------- Session (demo auth persisted client-side until Phase 4 issues real tokens) ---------- */
@@ -260,12 +275,24 @@ function tmAttractionCard(a) {
 }
 
 function tmBindTripButtons(scope = document) {
+  if (!scope) return;
   scope.querySelectorAll("[data-add-trip-id]").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
+    btn.onclick = (e) => {
       e.preventDefault();
-      const id = Number(btn.dataset.addTripId);
-      tmAddToItinerary(id);
-    });
+      const id = Number(btn.getAttribute("data-add-trip-id"));
+      const added = tmAddDestinationToPlan(id);
+      if (added) {
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = `<i class="bi bi-check2"></i> Added`;
+        btn.classList.add("btn-success");
+        btn.classList.remove("btn-primary");
+        setTimeout(() => {
+          btn.innerHTML = originalHtml;
+          btn.classList.remove("btn-success");
+          btn.classList.add("btn-primary");
+        }, 1800);
+      }
+    };
   });
 }
 
@@ -288,6 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
   tmInitTheme();
   tmInitNav();
   tmInitScrollReveal();
+  tmUpdatePlanBadges();
 
   document.querySelectorAll("[data-theme-toggle]").forEach((btn) => {
     btn.addEventListener("click", tmToggleTheme);
