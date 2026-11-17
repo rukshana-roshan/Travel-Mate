@@ -41,7 +41,8 @@ public class Review {
     public Review() {
     }
 
-    public Review(Long id, User user, String userName, Attraction attraction, Integer rating, String comment, LocalDateTime createdAt) {
+    public Review(Long id, User user, String userName, Attraction attraction, Integer rating, String comment,
+            LocalDateTime createdAt) {
         this.id = id;
         this.user = user;
         this.userName = userName;
@@ -60,26 +61,61 @@ public class Review {
         this.createdAt = LocalDateTime.now();
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getUserName() { return userName; }
-    public void setUserName(String userName) { this.userName = userName; }
+    public User getUser() {
+        return user;
+    }
 
-    public Attraction getAttraction() { return attraction; }
-    public void setAttraction(Attraction attraction) { this.attraction = attraction; }
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-    public Integer getRating() { return rating; }
-    public void setRating(Integer rating) { this.rating = rating; }
+    public String getUserName() {
+        return userName;
+    }
 
-    public String getComment() { return comment; }
-    public void setComment(String comment) { this.comment = comment; }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public Attraction getAttraction() {
+        return attraction;
+    }
+
+    public void setAttraction(Attraction attraction) {
+        this.attraction = attraction;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -94,13 +130,40 @@ public class Review {
         private String comment;
         private LocalDateTime createdAt;
 
-        public Builder id(Long id) { this.id = id; return this; }
-        public Builder user(User user) { this.user = user; return this; }
-        public Builder userName(String userName) { this.userName = userName; return this; }
-        public Builder attraction(Attraction attraction) { this.attraction = attraction; return this; }
-        public Builder rating(Integer rating) { this.rating = rating; return this; }
-        public Builder comment(String comment) { this.comment = comment; return this; }
-        public Builder createdAt(LocalDateTime createdAt) { this.createdAt = createdAt; return this; }
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder user(User user) {
+            this.user = user;
+            return this;
+        }
+
+        public Builder userName(String userName) {
+            this.userName = userName;
+            return this;
+        }
+
+        public Builder attraction(Attraction attraction) {
+            this.attraction = attraction;
+            return this;
+        }
+
+        public Builder rating(Integer rating) {
+            this.rating = rating;
+            return this;
+        }
+
+        public Builder comment(String comment) {
+            this.comment = comment;
+            return this;
+        }
+
+        public Builder createdAt(LocalDateTime createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
 
         public Review build() {
             return new Review(id, user, userName, attraction, rating, comment, createdAt);
